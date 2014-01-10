@@ -33,10 +33,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="143.29316"
-     inkscape:cy="191.90621"
+     inkscape:cx="513.17301"
+     inkscape:cy="434.34282"
      inkscape:document-units="px"
-     inkscape:current-layer="layer10"
+     inkscape:current-layer="layer8"
      showgrid="true"
      showguides="false"
      inkscape:window-width="1680"
@@ -159,7 +159,7 @@
        sodipodi:cy="307.36218"
        sodipodi:rx="20"
        sodipodi:ry="15"
-       d="m 310,307.36218 c 0,8.28427 -8.95431,15 -20,15 -11.04569,0 -20,-6.71573 -20,-15 0,-8.28427 8.95431,-15 20,-15 11.04569,0 20,6.71573 20,15 z"
+       d="m 310,307.36218 a 20,15 0 1 1 -40,0 20,15 0 1 1 40,0 z"
        transform="matrix(0.39520568,0,0,0.49665331,431.19889,316.98195)" />
     <path
        sodipodi:type="arc"
@@ -169,15 +169,14 @@
        sodipodi:cy="307.36218"
        sodipodi:rx="20"
        sodipodi:ry="15"
-       d="m 310,307.36218 c 0,8.28427 -8.95431,15 -20,15 -11.04569,0 -20,-6.71573 -20,-15 0,-8.28427 8.95431,-15 20,-15 11.04569,0 20,6.71573 20,15 z"
+       d="m 310,307.36218 a 20,15 0 1 1 -40,0 20,15 0 1 1 40,0 z"
        transform="matrix(0.39520568,0,0,0.49665331,401.79529,317.33729)" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="schéma left"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <path
        style="fill:#ff00ff;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 106.19926,116.26391 -10,0 0,10 -10,9.99999 0,10 5,0 0,-10 10,-5 10,5 0,10 5,0 0,-10 -10,-9.99999 z"
@@ -251,8 +250,7 @@
      inkscape:groupmode="layer"
      id="layer7"
      inkscape:label="dos"
-     style="display:inline"
-     sodipodi:insensitive="true">
+     style="display:inline">
     <path
        style="fill:#ff0000;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
        d="m 381.60787,208.19043 20,0 0,-10 -20,0 z"
@@ -314,8 +312,7 @@
   <g
      inkscape:groupmode="layer"
      id="layer8"
-     inkscape:label="legende bras"
-     sodipodi:insensitive="true">
+     inkscape:label="legende bras">
     <path
        sodipodi:type="arc"
        style="fill:#00ff00;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
@@ -380,39 +377,25 @@
          style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:114.99999762%;writing-mode:lr-tb;text-anchor:start;font-family:Sans;-inkscape-font-specification:Sans">Moteurs</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:160.00000238%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:160%;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
        x="840"
        y="92.094482"
        id="text3554-2"
        sodipodi:linespacing="160%"><tspan
          sodipodi:role="line"
-         id="tspan3631"
-         x="840"
-         y="92.094482">Pivotement Axe Vertical</tspan><tspan
+         id="tspan3480">Pivotement Axe Vertical</tspan><tspan
          sodipodi:role="line"
-         id="tspan3633"
-         x="840"
-         y="117.69448">Avant Bras</tspan><tspan
+         id="tspan3482">Bras</tspan><tspan
          sodipodi:role="line"
-         id="tspan3635"
-         x="840"
-         y="143.29448">Bras</tspan><tspan
+         id="tspan3484">Avant Bras</tspan><tspan
          sodipodi:role="line"
-         id="tspan3637"
-         x="840"
-         y="168.89449">pince : Rotation coté droit</tspan><tspan
+         id="tspan3486">pince : Rotation coté droit</tspan><tspan
          sodipodi:role="line"
-         id="tspan3639"
-         x="840"
-         y="194.49448">Pince : rotation coté gauche</tspan><tspan
+         id="tspan3488">Pince : rotation coté gauche</tspan><tspan
          sodipodi:role="line"
-         id="tspan3641"
-         x="840"
-         y="220.09448">Pince :ouverture/fermeture</tspan><tspan
+         id="tspan3490">Pince :ouverture/fermeture</tspan><tspan
          sodipodi:role="line"
-         id="tspan3643"
-         x="840"
-         y="245.69449" /></text>
+         id="tspan3492"></tspan></text>
     <path
        sodipodi:type="arc"
        style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;display:inline"
@@ -427,26 +410,7 @@
   <g
      inkscape:groupmode="layer"
      id="layer9"
-     inkscape:label="pince archi"
-     sodipodi:insensitive="true">
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 13.13706,5.49872 -10,0"
-       id="path3732-9"
-       inkscape:connector-type="polyline"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 13.13706,60.49872 0,0"
-       id="path3734-8"
-       inkscape:connector-type="polyline"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 3.13706,60.49872 10,0"
-       id="path3736-4"
-       inkscape:connector-type="polyline"
-       inkscape:connector-curvature="0" />
+     inkscape:label="pince archi">
     <g
        id="g4172">
       <path
@@ -2221,7 +2185,7 @@
          transform="translate(-254.28571,19.285714)"
          sodipodi:end="7.0685835"
          sodipodi:start="3.9269908"
-         d="m 404.3934,318.48788 a 15,15 0 1 1 21.2132,21.2132 L 415,329.09448 z"
+         d="m 404.3934,318.48788 c 5.85786,-5.85786 15.35534,-5.85786 21.2132,0 5.85787,5.85786 5.85787,15.35534 0,21.2132 0,0 0,0 0,0 L 415,329.09448 z"
          sodipodi:ry="15"
          sodipodi:rx="15"
          sodipodi:cy="329.09448"
@@ -2510,7 +2474,7 @@
          transform="translate(-254.28571,19.285714)"
          sodipodi:end="7.0685835"
          sodipodi:start="3.9269908"
-         d="m 404.3934,318.48788 a 15,15 0 1 1 21.2132,21.2132 L 415,329.09448 z"
+         d="m 404.3934,318.48788 c 5.85786,-5.85786 15.35534,-5.85786 21.2132,0 5.85787,5.85786 5.85787,15.35534 0,21.2132 0,0 0,0 0,0 L 415,329.09448 z"
          sodipodi:ry="15"
          sodipodi:rx="15"
          sodipodi:cy="329.09448"
