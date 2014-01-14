@@ -53,11 +53,11 @@ int main()
             break;
          case KEY_PPAGE:
             steps += BIG_INC;
-            if (steps > MAX_STEPS) steps = 1+(steps%MAX_STEPS);
+            if (steps > MAX_STEPS) steps = steps%MAX_STEPS;
             break;
          case KEY_NPAGE:
             steps -= BIG_INC;
-            if (steps <= 1) steps = MAX_STEPS+steps;
+            if (steps < 1) steps = MAX_STEPS+steps;
             break;
          case KEY_RIGHT:
             print_doing (win, TRUE, steps);
