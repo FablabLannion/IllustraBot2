@@ -1,15 +1,15 @@
 #include <ncurses.h>
 #include <unistd.h>
 
-#define MAX_STEPS 240
+#define MAX_STEPS 999
 #define BIG_INC 10
 
 void print_help(WINDOW*win) {
    wmove (win, 1, 1);
    mvwprintw(win, 6, 1, "Help");
-   mvwprintw(win, 7, 1, "  v  / ^  : number of steps");
-   mvwprintw(win, 8, 1, "  -> / <- : rotate");
-   mvwprintw(win, 9, 1, "  q       : quit");
+   mvwprintw(win, 7, 1, "  0-9,up,dwn  : number of steps");
+   mvwprintw(win, 8, 1, "  ->, <-      : rotate");
+   mvwprintw(win, 9, 1, "  q           : quit");
 }
 
 void print_steps (WINDOW* win, int steps ) {
@@ -68,6 +68,19 @@ int main()
             print_doing (win, FALSE, steps);
             wrefresh(win);                 /* Print it on to the real screen */
             sleep(1);
+            break;
+         case '0':
+         case '1':
+         case '2':
+         case '3':
+         case '4':
+         case '5':
+         case '6':
+         case '7':
+         case '8':
+         case '9':
+            steps = steps*10 + ch - '0';
+            steps = steps - ( (steps / 1000) * 1000 );
             break;
          case 'q':
             exit = TRUE;
