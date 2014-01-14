@@ -4,22 +4,20 @@
 #define MAX_STEPS 240
 #define BIG_INC 10
 
-void print_help(void) {
-   move (0, 0);
-   printw("Help\n");
-   printw("  v  / ^  : number of steps\n");
-   printw("  -> / <- : rotate\n");
-   printw("  q       : quit\n");
+void print_help(WINDOW*win) {
+   wmove (win, 1, 1);
+   mvwprintw(win, 6, 1, "Help");
+   mvwprintw(win, 7, 1, "  v  / ^  : number of steps");
+   mvwprintw(win, 8, 1, "  -> / <- : rotate");
+   mvwprintw(win, 9, 1, "  q       : quit");
 }
 
-void print_steps ( int steps ) {
-   move (5, 1);
-   printw ("Steps per stroke : %03d", steps);
+void print_steps (WINDOW* win, int steps ) {
+   mvwprintw (win, 2, 3, "Steps per stroke : %03d", steps);
 }
 
-void print_doing ( bool dir, int steps) {
-   move (7,1);
-   printw ("Going %s for %03d steps ...", (dir)?"right":"left", steps);
+void print_doing (WINDOW* win,  bool dir, int steps) {
+   mvwprintw (win, 4, 3, "Going %s for %03d steps ...", (dir)?"right":"left", steps);
 }
 
 int main()
@@ -27,18 +25,23 @@ int main()
    int ch;
    int steps = 1;
    bool exit = FALSE; 
+   WINDOW * win;
    
    initscr();                 /* Start curses mode     */
    noecho();                  /* supress echoing */
    curs_set(0);               /* hide cursor */
    keypad(stdscr, TRUE);      /* get special keys ie:arrows */
+   win = newwin(11, 35, 1, 0);
+   mvprintw (0, 9, "== Motor Test ==");
 
    
    while ( ! exit ) {
-      clear();
-      print_help();
-      print_steps (steps);
-      refresh();                 /* Print it on to the real screen */
+      werase(win);
+      wborder(win, 0, 0, 0, 0, 0, 0, 0, 0);
+      print_help(win);
+      print_steps (win, steps);
+      refresh();
+      wrefresh(win);
       
       ch = getch();                   /* Wait for user input */
       switch (ch) {
@@ -57,13 +60,13 @@ int main()
             if (steps <= 1) steps = MAX_STEPS+steps;
             break;
          case KEY_RIGHT:
-            print_doing (TRUE, steps);
-            refresh();                 /* Print it on to the real screen */
+            print_doing (win, TRUE, steps);
+            wrefresh(win);                 /* Print it on to the real screen */
             sleep(1);
             break;
          case KEY_LEFT:
-            print_doing (FALSE, steps);
-            refresh();                 /* Print it on to the real screen */
+            print_doing (win, FALSE, steps);
+            wrefresh(win);                 /* Print it on to the real screen */
             sleep(1);
             break;
          case 'q':
