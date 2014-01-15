@@ -4,7 +4,7 @@ CFLAGS = -Wall
 EXEC_NAME = motor_test
 INCLUDES =
 LIBS = -lncurses
-OBJ_FILES = main.o
+OBJ_FILES = main.o SimpleGPIO.o
 INSTALL_DIR = /usr/bin
 
 all : $(EXEC_NAME)

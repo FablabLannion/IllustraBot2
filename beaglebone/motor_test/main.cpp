@@ -1,8 +1,20 @@
+/** Motor test application for BeagleBone
+ */
+
 #include <ncurses.h>
 #include <unistd.h>
+#include <iostream>
+using namespace std;
+
+#include "SimpleGPIO.h"
 
 #define MAX_STEPS 999
 #define BIG_INC 10
+
+// P8_12 -> steps
+#define PIN_STEP 44
+// P8_11 -> dir
+#define PIN_DIR  45
 
 void print_help(WINDOW*win) {
    wmove (win, 1, 1);
@@ -20,12 +32,50 @@ void print_doing (WINDOW* win,  bool dir, int steps) {
    mvwprintw (win, 4, 3, "Going %s for %03d steps ...", (dir)?"right":"left", steps);
 }
 
+void init_gpio (void)
+{
+   gpio_export (PIN_STEP); 
+   gpio_export (PIN_DIR); 
+   gpio_set_dir ( PIN_STEP, OUTPUT_PIN);
+   gpio_set_dir ( PIN_DIR,  OUTPUT_PIN);
+   gpio_set_value ( PIN_DIR, HIGH);
+   
+} // init_gpio
+
+
+void step(int numberOfSteps)
+{
+   int sleepDelay = 250; //uS
+   
+   cout << "Doing "<< numberOfSteps << " steps and going to sleep for " << sleepDelay << "uS\n";
+   if(numberOfSteps>=0) {
+//       if(clockwise) gpio_set_value(this->gpio_DIR, LOW);
+//       else gpio_set_value(this->gpio_DIR, HIGH);
+      for(int i=0; i<numberOfSteps; i++){
+         gpio_set_value(PIN_STEP, LOW);
+         gpio_set_value(PIN_STEP, HIGH);
+         usleep(sleepDelay);
+      }
+   }
+   else { // going in reverse (numberOfSteps is negative)
+//       if(clockwise) gpio_set_value(this->gpio_DIR, HIGH);
+//       else gpio_set_value(this->gpio_DIR, LOW);
+      for(int i=numberOfSteps; i<=0; i++){
+         gpio_set_value(PIN_STEP, LOW);
+         gpio_set_value(PIN_STEP, HIGH);
+         usleep(sleepDelay);
+      }
+   }
+}
+
 int main()
 {
    int ch;
    int steps = 1;
    bool exit = FALSE; 
    WINDOW * win;
+   
+   init_gpio();
    
    initscr();                 /* Start curses mode     */
    noecho();                  /* supress echoing */
@@ -62,6 +112,7 @@ int main()
          case KEY_RIGHT:
             print_doing (win, TRUE, steps);
             wrefresh(win);                 /* Print it on to the real screen */
+            step(steps);
             sleep(1);
             break;
          case KEY_LEFT:
