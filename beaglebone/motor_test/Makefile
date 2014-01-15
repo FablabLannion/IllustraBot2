@@ -24,5 +24,8 @@ $(EXEC_NAME) : $(OBJ_FILES)
 %.o: %.c
 	gcc $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
+dtbo: motor_test-1.dts
+	dtc -O dtb -o motor_test-1-00A0.dtbo -b 0 -@ motor_test-1.dts
+
 install :
 	cp $(EXEC_NAME) $(INSTALL_DIR)
