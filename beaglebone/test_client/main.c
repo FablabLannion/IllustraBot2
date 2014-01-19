@@ -97,6 +97,7 @@ int main (int argc,char **argv)
       fprintf(stderr, "cannot find joystick\n");
       return 1;
    }
+   joy_nonblocking(&joy);
    printf( "Joystick detected : %s\n\t%2d axis\n\t%2d buttons\n" ,
            joy.name, joy.num_of_axis , joy.num_of_buttons);
    
@@ -120,6 +121,7 @@ int main (int argc,char **argv)
       (void) fprintf(stdout,"%s\n",szbuf);
       (void) fflush(stdout);
    }
+   
    while (1) {
       // read the joystick 
       joy_read(&joy);
@@ -134,6 +136,8 @@ int main (int argc,char **argv)
          (void) fprintf(stdout,"%s\n",szbuf);
          (void) fflush(stdout);
       }
+      // one command every 10ms
+      usleep(10000);
    }
    
    close(sock_fd);

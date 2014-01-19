@@ -4,7 +4,7 @@
  * Fablab Lannion IllustraBot2 project
  * http://fablab-lannion.org/wiki/index.php?title=IllustraBot2
  *********************************************************************
- * Copyright: (c) 2013 Jérôme Labidurie
+ * Copyright: (c) 2014 Jérôme Labidurie
  * Licence:   GNU General Public Licence version 3
  * Email:     jerome.labidurie at gmail.com
  *********************************************************************
@@ -60,6 +60,7 @@ int joy_init (joy_t* joy)
  * 
  * This is a blocking read. So you'll get back from this function
  * only when joystick have moved.
+ * To change this behaviour, use joy_nonblocking()
  * 
  * @param joy the joystick. It will be updated with read data.
  * @return 0
@@ -79,6 +80,14 @@ int joy_read(joy_t* joy)
    }
    return 0;
 } // joy_read
+
+/** set joy_read non blocking
+ * @param joy joystick
+ */
+void joy_nonblocking(joy_t* joy)
+{
+   fcntl( joy->joy_fd, F_SETFL , O_NONBLOCK ); // use non - blocking methods
+}
 
 /** close the joystick
  * free allocated memory from joy_init()

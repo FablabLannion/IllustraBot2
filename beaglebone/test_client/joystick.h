@@ -24,5 +24,6 @@ typedef struct {
 int joy_init (joy_t* joy);
 int joy_read (joy_t* joy);
 void joy_close(joy_t* joy);
+void joy_nonblocking(joy_t* joy);
 
 #endif /* __JOYSTICK_H__ */
