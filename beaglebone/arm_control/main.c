@@ -4,7 +4,7 @@
  * Fablab Lannion IllustraBot2 project
  * http://fablab-lannion.org/wiki/index.php?title=IllustraBot2
  *********************************************************************
- * Copyright: (c) 2013 Jérôme Labidurie
+ * Copyright: (c) 2014 Jérôme Labidurie
  * Licence:   GNU General Public Licence version 3
  * Email:     jerome.labidurie at gmail.com
  *********************************************************************
@@ -27,6 +27,16 @@
 
 #include <msock.h>
 #include <proto.h>
+#include "easydriver.h"
+
+// P8_11 -> steps
+#define PIN_STEP 45
+// P8_12 -> dir
+#define PIN_DIR  44
+// steps per revolution
+#define STEPS_PR 1600
+#define MIN_SPEED 500
+#define MAX_SPEED 40000
 
 void dump_message (message_t* msg)
 {
@@ -52,19 +62,37 @@ void dump_message (message_t* msg)
    }
 } // dump_message
 
+
+int init_motors(easydriver_t* ed)
+{
+   int rc=0;
+   
+   rc = ed_init(ed, PIN_STEP, PIN_DIR, STEPS_PR, 10);
+   ed->speed = MIN_SPEED;
+   return rc;
+} // init_motors
+
+void close_motors(easydriver_t* ed)
+{
+   ed_close(ed);
+}//close_motors
+
 int main (int argc,char **argv) 
 {
    int
-   connected,
-   rc,
-   client_port,
-   port,
-   sock_fd;
+      connected,
+      rc,
+      client_port,
+      port,
+      sock_fd;
    
    char
-   szclient_host[64],
-   szclient_ip[64],
-   szbuf[BUFSIZ];
+      szclient_host[64],
+      szclient_ip[64],
+      szbuf[BUFSIZ];
+      
+   easydriver_t motor1;
+   message_t* msg;
    
    if (argc < 2)
    {
@@ -73,7 +101,13 @@ int main (int argc,char **argv)
    }
    port=atoi(argv[1]);
    
+   if ( init_motors( &motor1 ) != 0) {
+      fprintf(stderr, "cannot init motors\n");
+      return 1;
+   }
+   
    /* open socket and start listening */
+   printf ("Starting server ...\n");
    sock_fd=ServerSocket((u_short) port,5);
    if (sock_fd == -1)
    {
@@ -105,10 +139,24 @@ int main (int argc,char **argv)
       if (rc)
       {
          //            printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
-         printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
+//          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
          rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
          if (rc) {
-            dump_message( (message_t*) szbuf);
+//             dump_message( (message_t*) szbuf);
+            msg = (message_t*) szbuf;
+            switch (msg->type) {
+               case T_DATA_JOY:
+                  // map joystick x1 from 0-32767 to MIN_SPEED-MAX_SPEED
+                  motor1.speed = (abs(msg->pl.joystick.x1) - 0) * (MAX_SPEED - MIN_SPEED) / (32767 - 0) + MIN_SPEED;
+//                   printf("speed:%d\n",motor1.speed);
+                  if (msg->pl.joystick.x1 > 0) {
+                     ed_step (&motor1, 16);
+                  }
+                  else if (msg->pl.joystick.x1 < 0) {
+                     ed_step (&motor1, -16);
+                  }
+                  break;
+            }
          }
       }
       //send back answer

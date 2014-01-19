@@ -15,7 +15,7 @@ DEFINES= $(INCLUDES) $(DEFS)
 CFLAGS= -g -O2 -Wall $(DEFINES) 
 
 
-OBJS= main.o
+OBJS= main.o SimpleGPIO.o easydriver.o
 
 .c.o:
 	rm -f $@
