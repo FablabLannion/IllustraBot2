@@ -203,8 +203,8 @@ int main (int argc,char **argv)
 
             switch (msg->type) {
                case T_DATA_JOY:
-                  if (msg->pl.joystick.x1 != 0) {
 //             dump_message( (message_t*) szbuf);
+                  if (msg->pl.joystick.x1 != 0) {
                      pthread_mutex_lock ( &motors[0].mutex );
                      // map joystick x1 from 0-32767 to MIN_SPEED-MAX_SPEED
                      motors[0].ed.speed = (abs(msg->pl.joystick.x1) - 0) * (MAX_SPEED - MIN_SPEED) / (32767 - 0) + MIN_SPEED;
@@ -216,6 +216,19 @@ int main (int argc,char **argv)
                      }
                      rc = pthread_cond_signal ( &motors[0].cond );
                      pthread_mutex_unlock ( &motors[0].mutex );
+                  }
+                  if (msg->pl.joystick.y1 != 0) {
+                     pthread_mutex_lock ( &motors[1].mutex );
+                     // map joystick x1 from 0-32767 to MIN_SPEED-MAX_SPEED
+                     motors[1].ed.speed = (abs(msg->pl.joystick.y1) - 0) * (MAX_SPEED - MIN_SPEED) / (32767 - 0) + MIN_SPEED;
+                     if (msg->pl.joystick.y1 > 0) {
+                        motors[1].steps = 16;
+                     }
+                     else if (msg->pl.joystick.y1 < 0) {
+                        motors[1].steps = -16;
+                     }
+                     rc = pthread_cond_signal ( &motors[1].cond );
+                     pthread_mutex_unlock ( &motors[1].mutex );
                   }
                   break;
             }

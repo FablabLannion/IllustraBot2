@@ -29,3 +29,6 @@ $(PROGNAME): $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(PROGNAME)
+
+dtbo: arm_control-1.dts
+	dtc -O dtb -o arm_control-1-00A0.dtbo -b 0 -@ arm_control-1.dts
