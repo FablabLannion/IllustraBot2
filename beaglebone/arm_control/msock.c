@@ -305,7 +305,7 @@ int getPeerInfo(int sockfd,char *cli_host,char *cli_ip,u_short *cli_port)
 {
     struct sockaddr_in
         cs;
-    int
+    unsigned int
         len;
     struct hostent
         *ch;

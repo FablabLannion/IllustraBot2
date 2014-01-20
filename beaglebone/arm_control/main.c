@@ -23,37 +23,26 @@
  * You should have received a copy of the GNU General Public License
  * along with IllustraBot2.  If not, see <http://www.gnu.org/licenses/>.
  *********************************************************************
+ * TODO: handler for SIGINT
  */
 
 #include "msock.h"
 #include <proto.h>
 #include "easydriver.h"
+#include "main.h"
+
 
 #include <pthread.h>
 
-#define NB_MOTORS 1
 
-// P8_11 -> steps
-#define PIN_STEP 45
-// P8_12 -> dir
-#define PIN_DIR  44
-// steps per revolution
-#define STEPS_PR 1600
-#define MIN_SPEED 500
-#define MAX_SPEED 40000
+motor_t motors[NB_MOTORS];      /**< array with all controled motors */
 
-typedef struct {
-   char name[10];
-   easydriver_t ed;
-   int steps;
-
-   pthread_t thread;
-   pthread_mutex_t mutex;
-   pthread_cond_t cond;
-} motor_t;
-
-motor_t motors[NB_MOTORS];
-
+/** Display a received message from the client
+ *
+ * "Pretty" print of the message. display differs followinf message type.
+ *
+ * @param msg the message to dump
+ */
 void dump_message (message_t* msg)
 {
    printf ("received message:\n");
@@ -78,7 +67,12 @@ void dump_message (message_t* msg)
    }
 } // dump_message
 
-
+/** Motor control function
+ *
+ * Must be executed in a separate thread
+ *
+ * @param pdata the motor number as an int
+ */
 void* run_motor (void* pdata)
 {
    unsigned int nMotor = (unsigned int) pdata; // motor number
@@ -94,17 +88,23 @@ void* run_motor (void* pdata)
       pthread_mutex_unlock(&motors[nMotor].mutex);
 
       if (steps != 0) {
+         // warning: here we will read speed outside of mutex !!
          ed_step (&motors[nMotor].ed, steps);
       }
    }
 } // run_motor
 
+/** Initialisation of motors
+ *
+ * Fill the motors array and create motor control threads.
+ */
 int init_motors(void)
 {
    int rc=0, i;
 
    for (i=0; i< NB_MOTORS; i++) {
-      rc = ed_init (&motors[i].ed, PIN_STEP, PIN_DIR, STEPS_PR, 10);
+      sprintf (motors[i].name, "motor %d", i);
+      rc = ed_init (&motors[i].ed, motor_pins[i][IDX_STEP], motor_pins[i][IDX_DIR], STEPS_PR, 10);
       motors[i].ed.speed = MIN_SPEED;
 
       pthread_mutex_init ( &motors[i].mutex, NULL );
@@ -114,6 +114,8 @@ int init_motors(void)
    return rc;
 } // init_motors
 
+/** Close motors and kill threads
+ */
 void close_motors (void)
 {
    int i;
@@ -121,9 +123,14 @@ void close_motors (void)
    for (i=0; i<NB_MOTORS; i++) {
       ed_close(&motors[i].ed);
 
+      pthread_cond_destroy (&motors[i].cond);
+      pthread_mutex_destroy (&motors[i].mutex);
       pthread_cancel (motors[i].thread);
    }
 }//close_motors
+
+
+/**** MAIN ****/
 
 int main (int argc,char **argv)
 {
@@ -141,6 +148,7 @@ int main (int argc,char **argv)
 
    message_t* msg;
 
+   // TODO: better argument handling
    if (argc < 2)
    {
       (void) fprintf(stderr,"usage: %s port\n",argv[0]);
@@ -148,6 +156,7 @@ int main (int argc,char **argv)
    }
    port=atoi(argv[1]);
 
+   // init of motor control threads
    if ( init_motors() != 0) {
       fprintf(stderr, "cannot init motors\n");
       return 1;
@@ -168,18 +177,18 @@ int main (int argc,char **argv)
    rc=getPeerInfo(sock_fd,szclient_host,szclient_ip,(u_short*)&client_port);
    if (rc == 0)
    {
-      (void) fprintf(stderr,"================================\n");
-      (void) fprintf(stderr,"Client hostname %s\n",szclient_host);
-      (void) fprintf(stderr,"Client IP: %s\n",szclient_ip);
-      (void) fprintf(stderr,"Client port: %d\n",client_port);
-      (void) fprintf(stderr,"================================\n");
+      fprintf(stderr,"================================\n");
+      fprintf(stderr,"Client hostname %s\n",szclient_host);
+      fprintf(stderr,"Client IP: %s\n",szclient_ip);
+      fprintf(stderr,"Client port: %d\n",client_port);
+      fprintf(stderr,"================================\n");
    }
 
    connected=1;
-   /* server the client */
+   /* serve the client */
    while (connected)
    {
-      //         rc=sockGets(sock_fd,szbuf,sizeof(szbuf));
+      // get message header
       rc = sockRead (sock_fd, szbuf, HEADER_SIZE);
       if (rc < 0)
          break;
@@ -187,6 +196,7 @@ int main (int argc,char **argv)
       {
          //            printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
 //          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
+         // get following part of the message
          rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
          if (rc) {
             msg = (message_t*) szbuf;
@@ -195,9 +205,9 @@ int main (int argc,char **argv)
                case T_DATA_JOY:
                   if (msg->pl.joystick.x1 != 0) {
 //             dump_message( (message_t*) szbuf);
+                     pthread_mutex_lock ( &motors[0].mutex );
                      // map joystick x1 from 0-32767 to MIN_SPEED-MAX_SPEED
                      motors[0].ed.speed = (abs(msg->pl.joystick.x1) - 0) * (MAX_SPEED - MIN_SPEED) / (32767 - 0) + MIN_SPEED;
-                     pthread_mutex_lock ( &motors[0].mutex );
                      if (msg->pl.joystick.x1 > 0) {
                         motors[0].steps = 16;
                      }
@@ -212,11 +222,11 @@ int main (int argc,char **argv)
          }
       }
       //send back answer
-      (void) sockPuts(sock_fd,"OK\n");
+      sockPuts(sock_fd,"OK\n");
    }
 
 
-   (void) fprintf(stderr," <closed>\n\n");
+   fprintf(stderr," <closed>\n\n");
    close(sock_fd);
    close_motors();
    return(0);
