@@ -33,7 +33,7 @@
 
 
 #include <pthread.h>
-
+#include <inttypes.h>
 
 motor_t motors[NB_MOTORS];      /**< array with all controled motors */
 
@@ -75,10 +75,10 @@ void dump_message (message_t* msg)
  */
 void* run_motor (void* pdata)
 {
-   unsigned int nMotor = (unsigned int) pdata; // motor number
+   intptr_t nMotor = (intptr_t)pdata; // motor number
    int steps = 0;
 
-   printf ("Thread %d, motor %d, starting ...\n", (int)pthread_self(), nMotor);
+   printf ("Thread %d, motor %" PRIdPTR ", starting ...\n", (int)pthread_self(), nMotor);
    while (1) {
       pthread_mutex_lock (&motors[nMotor].mutex);
       pthread_cond_wait (&motors[nMotor].cond, &motors[nMotor].mutex);
@@ -88,7 +88,7 @@ void* run_motor (void* pdata)
       pthread_mutex_unlock(&motors[nMotor].mutex);
 
       if (steps != 0) {
-         // warning: here we will read speed outside of mutex !!
+         // WARNING: here we will read speed outside of mutex !!
          ed_step (&motors[nMotor].ed, steps);
       }
    }
@@ -100,10 +100,11 @@ void* run_motor (void* pdata)
  */
 int init_motors(void)
 {
-   int rc=0, i;
+   int rc=0;
+   intptr_t i;
 
    for (i=0; i< NB_MOTORS; i++) {
-      sprintf (motors[i].name, "motor %d", i);
+      sprintf (motors[i].name, "motor %" PRIdPTR, i);
       rc = ed_init (&motors[i].ed, motor_pins[i][IDX_STEP], motor_pins[i][IDX_DIR], STEPS_PR, 10);
       motors[i].ed.speed = MIN_SPEED;
 
@@ -219,7 +220,7 @@ int main (int argc,char **argv)
                   }
                   if (msg->pl.joystick.y1 != 0) {
                      pthread_mutex_lock ( &motors[1].mutex );
-                     // map joystick x1 from 0-32767 to MIN_SPEED-MAX_SPEED
+                     // map joystick y1 from 0-32767 to MIN_SPEED-MAX_SPEED
                      motors[1].ed.speed = (abs(msg->pl.joystick.y1) - 0) * (MAX_SPEED - MIN_SPEED) / (32767 - 0) + MIN_SPEED;
                      if (msg->pl.joystick.y1 > 0) {
                         motors[1].steps = 16;
