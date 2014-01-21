@@ -7,8 +7,8 @@
 #define ANTICLOCKWISE HIGH
 
 typedef struct {
-   char gpio_STEP;           /**< GPIO for step pin */
-   char gpio_DIR;            /**< GPIO for direction pin */
+   gpio_t gpio_STEP;           /**< GPIO for step pin */
+   gpio_t gpio_DIR;            /**< GPIO for direction pin */
    int stepsPerRevolution;   /**< motor number of steps in one revolution */
    int speed;                /**< speed in RPM */
    char direction;           /**< motor direction */

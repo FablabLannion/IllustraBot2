@@ -46,7 +46,7 @@
 /****************************************************************
  * gpio_export
  ****************************************************************/
-int gpio_export(unsigned int gpio)
+int gpio_export(gpio_t* gpio, char ngpio)
 {
 	int fd, len;
 	char buf[MAX_BUF];
@@ -57,9 +57,27 @@ int gpio_export(unsigned int gpio)
 		return fd;
 	}
 
-	len = snprintf(buf, sizeof(buf), "%d", gpio);
+	len = snprintf(buf, sizeof(buf), "%d", ngpio);
 	write(fd, buf, len);
 	close(fd);
+
+        // init gpio_t struct
+        memset (gpio, 0, sizeof(gpio_t));
+        gpio->num = ngpio;
+        // open value file
+        snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/value", ngpio);
+        gpio->fd_value = open(buf, O_RDWR);
+        if (gpio->fd_value < 0) {
+                perror("gpio/open-value");
+                return fd;
+        }
+        // open direction file
+        snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/direction", ngpio);
+        gpio->fd_direction = open(buf, O_WRONLY);
+        if (gpio->fd_direction < 0) {
+                perror("gpio/open-direction");
+                return fd;
+        }
 
 	return 0;
 }
@@ -67,10 +85,13 @@ int gpio_export(unsigned int gpio)
 /****************************************************************
  * gpio_unexport
  ****************************************************************/
-int gpio_unexport(unsigned int gpio)
+int gpio_unexport(gpio_t* gpio)
 {
 	int fd, len;
 	char buf[MAX_BUF];
+
+        close (gpio->fd_value);
+        close (gpio->fd_direction);
 
 	fd = open(SYSFS_GPIO_DIR "/unexport", O_WRONLY);
 	if (fd < 0) {
@@ -78,7 +99,7 @@ int gpio_unexport(unsigned int gpio)
 		return fd;
 	}
 
-	len = snprintf(buf, sizeof(buf), "%d", gpio);
+	len = snprintf(buf, sizeof(buf), "%d", gpio->num);
 	write(fd, buf, len);
 	close(fd);
 	return 0;
@@ -87,79 +108,45 @@ int gpio_unexport(unsigned int gpio)
 /****************************************************************
  * gpio_set_dir
  ****************************************************************/
-int gpio_set_dir(unsigned int gpio, PIN_DIRECTION out_flag)
+int gpio_set_dir(gpio_t* gpio, PIN_DIRECTION out_flag)
 {
-	int fd;
-	char buf[MAX_BUF];
-
-	snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR  "/gpio%d/direction", gpio);
-
-	fd = open(buf, O_WRONLY);
-	if (fd < 0) {
-		perror("gpio/direction");
-		return fd;
-	}
-
 	if (out_flag == OUTPUT_PIN)
-		write(fd, "out", 4);
+		write(gpio->fd_direction, "out", 4);
 	else
-		write(fd, "in", 3);
+		write(gpio->fd_direction, "in", 3);
 
-	close(fd);
 	return 0;
 }
 
 /****************************************************************
  * gpio_set_value
  ****************************************************************/
-int gpio_set_value(unsigned int gpio, PIN_VALUE value)
+int gpio_set_value(gpio_t* gpio, PIN_VALUE value)
 {
-	int fd;
-	char buf[MAX_BUF];
-
-	snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/value", gpio);
-
-	fd = open(buf, O_WRONLY);
-	if (fd < 0) {
-		perror("gpio/set-value");
-		return fd;
-	}
-
+        lseek (gpio->fd_value, 0, SEEK_SET);
 	if (value==LOW)
-		write(fd, "0", 2);
+		write(gpio->fd_value, "0", 2);
 	else
-		write(fd, "1", 2);
+		write(gpio->fd_value, "1", 2);
 
-	close(fd);
 	return 0;
 }
 
 /****************************************************************
  * gpio_get_value
  ****************************************************************/
-int gpio_get_value(unsigned int gpio, unsigned int *value)
+int gpio_get_value(gpio_t* gpio, unsigned int *value)
 {
-	int fd;
-	char buf[MAX_BUF];
 	char ch;
 
-	snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/value", gpio);
-
-	fd = open(buf, O_RDONLY);
-	if (fd < 0) {
-		perror("gpio/get-value");
-		return fd;
-	}
-
-	read(fd, &ch, 1);
+        lseek (gpio->fd_value, 0, SEEK_SET);
+	read(gpio->fd_value, &ch, 1);
 
 	if (ch != '0') {
 		*value = 1;
 	} else {
 		*value = 0;
 	}
-
-	close(fd);
 	return 0;
 }
 

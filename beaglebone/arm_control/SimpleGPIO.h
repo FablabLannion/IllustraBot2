@@ -56,14 +56,21 @@ typedef enum {
 	HIGH=1
 }PIN_VALUE;
 
+typedef struct {
+   char num;            /**< gpio number */
+   int fd_value;        /**< file desciptor of /sys/class/gpio/gpio<num>/value */
+   int fd_direction;    /**< file desciptor of /sys/class/gpio/gpio<num>/direction */
+} gpio_t;
+
 /****************************************************************
  * gpio_export
  ****************************************************************/
-int gpio_export(unsigned int gpio);
-int gpio_unexport(unsigned int gpio);
-int gpio_set_dir(unsigned int gpio, PIN_DIRECTION out_flag);
-int gpio_set_value(unsigned int gpio, PIN_VALUE value);
-int gpio_get_value(unsigned int gpio, unsigned int *value);
+int gpio_export( gpio_t* gpio, char ngpio);
+int gpio_unexport(gpio_t* gpio);
+int gpio_set_dir(gpio_t* gpio, PIN_DIRECTION out_flag);
+int gpio_set_value(gpio_t* gpio, PIN_VALUE value);
+int gpio_get_value(gpio_t* gpio, unsigned int *value);
+
 int gpio_set_edge(unsigned int gpio, char *edge);
 int gpio_fd_open(unsigned int gpio);
 int gpio_fd_close(int fd);
