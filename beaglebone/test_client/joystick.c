@@ -9,7 +9,7 @@
  * Email:     jerome.labidurie at gmail.com
  *********************************************************************
  * This file is part of IllustraBot2.
- * 
+ *
  * IllustraBot2 is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +19,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with IllustraBot2.  If not, see <http://www.gnu.org/licenses/>.
  *********************************************************************
@@ -29,12 +29,13 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 
 /** Joystick initialisation
- * 
+ *
  * Some memory is allocated by this function.
  * Do not forget to call joy_close()
- * 
+ *
  * @param joy joystick to be used
  * @return 0 in case of success, -1 otherwise
  */
@@ -50,25 +51,25 @@ int joy_init (joy_t* joy)
    ioctl(joy->joy_fd, JSIOCGAXES , &joy->num_of_axis);
    ioctl(joy->joy_fd, JSIOCGBUTTONS , &joy->num_of_buttons);
    ioctl(joy->joy_fd, JSIOCGNAME(80), &joy->name);
-   
+
    joy->axis = (int *) calloc(joy->num_of_axis, sizeof(int));
    joy->button = (char *) calloc(joy->num_of_buttons, sizeof (char));
    return 0;
 } // joy_init
 
 /** read data from joystick
- * 
+ *
  * This is a blocking read. So you'll get back from this function
  * only when joystick have moved.
  * To change this behaviour, use joy_nonblocking()
- * 
+ *
  * @param joy the joystick. It will be updated with read data.
  * @return 0
  */
 int joy_read(joy_t* joy)
 {
    struct js_event js;
-   
+
    read (joy->joy_fd, &js , sizeof(struct js_event));
    // see what to do with the event
    switch(js.type & ~ JS_EVENT_INIT)

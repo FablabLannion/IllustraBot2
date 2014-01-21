@@ -16,11 +16,11 @@ DEFINES= $(INCLUDES) $(DEFS)
 CFLAGS= -g -O -Wall $(DEFINES)
 
 
-OBJS= main.o msock.o SimpleGPIO.o easydriver.o
+OBJS= main.o ../common/msock.o SimpleGPIO.o easydriver.o
 
 .c.o:
 	rm -f $@
-	$(CC) $(CFLAGS) -c $*.c
+	$(CC) $(CFLAGS) -c $*.c -o $*.o
 
 all: $(PROGNAME)
 

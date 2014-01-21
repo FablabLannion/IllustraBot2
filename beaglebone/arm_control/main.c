@@ -67,6 +67,11 @@ void dump_message (message_t* msg)
    }
 } // dump_message
 
+int map (int value, int in_min, int in_max, int out_min, int out_max)
+{
+   return (abs(value) - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}//map
+
 /** Motor control function
  *
  * Must be executed in a separate thread
@@ -208,7 +213,7 @@ int main (int argc,char **argv)
                   if (msg->pl.joystick.x1 != 0) {
                      pthread_mutex_lock ( &motors[0].mutex );
                      // map joystick x1 from 0-32767 to MIN_SPEED-MAX_SPEED
-                     motors[0].ed.speed = (abs(msg->pl.joystick.x1) - 0) * (MAX_SPEED - MIN_SPEED) / (32767 - 0) + MIN_SPEED;
+                     motors[0].ed.speed = map (msg->pl.joystick.x1, 0, 32767, MIN_SPEED, MAX_SPEED);
                      if (msg->pl.joystick.x1 > 0) {
                         motors[0].steps = 16;
                      }
@@ -221,7 +226,7 @@ int main (int argc,char **argv)
                   if (msg->pl.joystick.y1 != 0) {
                      pthread_mutex_lock ( &motors[1].mutex );
                      // map joystick y1 from 0-32767 to MIN_SPEED-MAX_SPEED
-                     motors[1].ed.speed = (abs(msg->pl.joystick.y1) - 0) * (MAX_SPEED - MIN_SPEED) / (32767 - 0) + MIN_SPEED;
+                     motors[1].ed.speed = map (msg->pl.joystick.y1, 0, 32767, MIN_SPEED, MAX_SPEED);
                      if (msg->pl.joystick.y1 > 0) {
                         motors[1].steps = 16;
                      }
