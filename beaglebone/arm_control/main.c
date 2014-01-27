@@ -67,6 +67,28 @@ void dump_message (message_t* msg)
    }
 } // dump_message
 
+/** Display a received message from the client as hex bytes
+ * @param msg the message to dump
+ */
+void hex_dump_message (message_t* msg)
+{
+   char* ptr = (char*)msg;
+   int i;
+
+   for (i=0;ptr < (char*)msg+sizeof(message_t); ptr++,i++) {
+      printf ("%X ",*ptr);
+   }
+}// hex_dump_message
+
+/** Convert a value from one range to another
+ *
+ * @param value the value to be remapped
+ * @param in_min lower boundary of value range
+ * @param in_max higher boundary of value range
+ * @param out_min lower boundary of returned value range
+ * @param out_max higher boundary of returned value range
+ * @return the value mapped from [in-min-in_max] to [out_min-out_max]
+ */
 int map (int value, int in_min, int in_max, int out_min, int out_max)
 {
    return (abs(value) - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -209,6 +231,7 @@ int main (int argc,char **argv)
 
             switch (msg->type) {
                case T_DATA_JOY:
+               hex_dump_message( (message_t*) szbuf);
 //             dump_message( (message_t*) szbuf);
                   if (msg->pl.joystick.x1 != 0) {
                      pthread_mutex_lock ( &motors[0].mutex );
