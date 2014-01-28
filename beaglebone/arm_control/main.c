@@ -75,9 +75,10 @@ void hex_dump_message (message_t* msg)
    char* ptr = (char*)msg;
    int i;
 
-   for (i=0;ptr < (char*)msg+sizeof(message_t); ptr++,i++) {
-      printf ("%X ",*ptr);
+   for (i=0;i < sizeof(message_t);i++) {
+      printf ("%02X ",ptr[i]);
    }
+   printf("\n");
 }// hex_dump_message
 
 /** Convert a value from one range to another
@@ -223,15 +224,16 @@ int main (int argc,char **argv)
       if (rc)
       {
          //            printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
-//          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
+         printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
          // get following part of the message
          rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
          if (rc) {
             msg = (message_t*) szbuf;
+               hex_dump_message( (message_t*) szbuf);
+               dump_message( (message_t*) szbuf);
 
             switch (msg->type) {
                case T_DATA_JOY:
-               hex_dump_message( (message_t*) szbuf);
 //             dump_message( (message_t*) szbuf);
                   if (msg->pl.joystick.x1 != 0) {
                      pthread_mutex_lock ( &motors[0].mutex );
