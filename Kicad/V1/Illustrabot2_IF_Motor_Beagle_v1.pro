@@ -1,6 +1,6 @@
-update=30/01/2014 14:06:02
+update=31/01/2014 21:06:30
 version=1
-last_client=kicad
+last_client=eeschema
 [cvpcb]
 version=1
 NetIExt=net
@@ -43,6 +43,8 @@ LibName13=led
 LibName14=dip_sockets
 LibName15=pga_sockets
 LibName16=valves
+[general]
+version=1
 [eeschema]
 version=1
 LibDir=
@@ -82,6 +84,4 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=Fablab_schematic_library
-[general]
-version=1
+LibName31=C:/Users/Nicolas/Desktop/Fablab/Illustrabot2/Kicad/Fablab_schematic_library
