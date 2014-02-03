@@ -1,4 +1,4 @@
-update=31/01/2014 21:06:30
+update=03/02/2014 21:05:04
 version=1
 last_client=eeschema
 [cvpcb]
@@ -47,8 +47,8 @@ LibName16=valves
 version=1
 [eeschema]
 version=1
-LibDir=
-NetFmtName=
+LibDir=../../../Illustrabot2
+NetFmtName=PcbnewAdvanced
 RptD_X=0
 RptD_Y=100
 RptLab=1
@@ -84,4 +84,4 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=C:/Users/Nicolas/Desktop/Fablab/Illustrabot2/Kicad/Fablab_schematic_library
+LibName31=Kicad/Fablab_schematic_library
