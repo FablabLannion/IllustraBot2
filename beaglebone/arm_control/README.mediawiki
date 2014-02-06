@@ -1,8 +1,8 @@
-== arm control program ==
+arm control program
 
 This directory contains the program aimed to control the IllustraBot2 arm.
 
-=== Files ===
+== Files ==
 * Makefile : how to compile
 * README.mediawiki : you're reading it
 * SimpleGPIO.c : gpio access library code
@@ -16,7 +16,7 @@ This directory contains the program aimed to control the IllustraBot2 arm.
 
 ''See also ../common/ for usefull libraries shared between server and client.''
 
-=== compilation / start ===
+== compilation / start ==
  $> make
 will compile the server
 
@@ -24,7 +24,7 @@ to start (as root) :
  $> ./start.sh
 will apply the DTO and start the server listening on ''1337'' port
 
-=== TODO ===
+== TODO ==
 * créer le DTO pour les 6 moteurs (voir pinout)
 * factoriser un peu le code pour le traitement des messages
 * ajouter le traitement des messages android

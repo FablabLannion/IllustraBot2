@@ -1,6 +1,6 @@
-== client for testing purposes ==
+client for testing purposes
 
-=== Files ===
+== Files ==
 * Makefile : to compile
 * bouchon_client.py : dummy client to test C struct creation in python
 * joystick.c : joystick library to access kernel driver
@@ -11,9 +11,9 @@
 
 ''See also ../common/ for usefull libraries shared between server and client.''
 
-=== compilation / start ===
+== compilation / start ==
 
-==== client ====
+=== client ===
  $> make
 will compile the server
 
@@ -21,10 +21,10 @@ to start :
  $> ./client 192.168.1.150 1337
 will start client and try to reach server on 192.168.1.150:1337
 
-==== joystick test ====
+=== joystick test ===
  $> gcc -c joystick.c
  $> gcc -o joystick_test joystick_test.c joystick.o
  $> ./joystick_test
 
-=== TODO ===
+== TODO ==
 * adaptation websocket/structure C en python

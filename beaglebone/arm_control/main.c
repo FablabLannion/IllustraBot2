@@ -39,7 +39,7 @@ motor_t motors[NB_MOTORS];      /**< array with all controled motors */
 
 /** Display a received message from the client
  *
- * "Pretty" print of the message. display differs followinf message type.
+ * "Pretty" print of the message. display differs following message type.
  *
  * @param msg the message to dump
  */
@@ -103,6 +103,7 @@ int map (int value, int in_min, int in_max, int out_min, int out_max)
  */
 void* run_motor (void* pdata)
 {
+   // use intptr_t to avoid warning : converting ptr to int
    intptr_t nMotor = (intptr_t)pdata; // motor number
    int steps = 0;
 
@@ -164,20 +165,20 @@ void close_motors (void)
 int main (int argc,char **argv)
 {
    int
-      connected,
-      rc,
-      client_port,
-      port,
-      sock_fd;
+   connected,
+   rc,
+   client_port,
+   port,
+   sock_fd;
 
    char
-      szclient_host[64],
-      szclient_ip[64],
-      szbuf[BUFSIZ];
+   szclient_host[64],
+   szclient_ip[64],
+   szbuf[BUFSIZ];
 
    message_t* msg;
 
-   // TODO: better argument handling
+   // TODO: better argument handling, use getopt
    if (argc < 2)
    {
       (void) fprintf(stderr,"usage: %s port\n",argv[0]);
@@ -196,8 +197,8 @@ int main (int argc,char **argv)
    sock_fd=ServerSocket((u_short) port,5);
    if (sock_fd == -1)
    {
-      (void) fprintf(stderr,"Failed to open socket\n");
-      return (1);
+      fprintf(stderr,"Failed to open socket\n");
+      return 1;
    }
 
    /* we will be here only when a client connects */
@@ -219,33 +220,40 @@ int main (int argc,char **argv)
    {
       // get message header
       rc = sockRead (sock_fd, szbuf, HEADER_SIZE);
-      if (rc < 0)
+      if (rc < 0) {
+         // read failed
          break;
-      if (rc)
-      {
+      }
+      else {
          //            printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
          // get following part of the message
          rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
          if (rc) {
             msg = (message_t*) szbuf;
-               hex_dump_message( (message_t*) szbuf);
-               dump_message( (message_t*) szbuf);
+            hex_dump_message( (message_t*) szbuf);
+            dump_message( (message_t*) szbuf);
 
+            // message treatment
             switch (msg->type) {
                case T_DATA_JOY:
-//             dump_message( (message_t*) szbuf);
+                  //             dump_message( (message_t*) szbuf);
+                  // TODO: create generic function to avoid ugly code duplication !
                   if (msg->pl.joystick.x1 != 0) {
+                     // lock mutex to access motor data
                      pthread_mutex_lock ( &motors[0].mutex );
                      // map joystick x1 from 0-32767 to MIN_SPEED-MAX_SPEED
                      motors[0].ed.speed = map (msg->pl.joystick.x1, 0, 32767, MIN_SPEED, MAX_SPEED);
+                     // TODO: avoid magic number, add better step computation
                      if (msg->pl.joystick.x1 > 0) {
                         motors[0].steps = 16;
                      }
                      else if (msg->pl.joystick.x1 < 0) {
                         motors[0].steps = -16;
                      }
+                     // unlock thread
                      rc = pthread_cond_signal ( &motors[0].cond );
+                     // unlock mutex for motor data
                      pthread_mutex_unlock ( &motors[0].mutex );
                   }
                   if (msg->pl.joystick.y1 != 0) {
@@ -273,5 +281,5 @@ int main (int argc,char **argv)
    fprintf(stderr," <closed>\n\n");
    close(sock_fd);
    close_motors();
-   return(0);
+   return 0;
 }

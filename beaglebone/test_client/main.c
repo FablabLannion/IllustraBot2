@@ -30,6 +30,9 @@
 #include <string.h>
 #include "joystick.h"
 
+/** create message for a wii nunchuk
+ * @param msg pointer to message to fill
+ */
 void make_message_data_wii (message_t* msg)
 {
    msg->version = PROTO_VERSION;
@@ -43,6 +46,10 @@ void make_message_data_wii (message_t* msg)
    msg->pl.nunchuk.z  = 3.1;
 }
 
+/** create message for a joystick
+ * @param msg pointer to message to fill
+ * @param joy pointer to joystick data
+ */
 void make_message_data_joy (message_t* msg, joy_t* joy)
 {
    msg->version = PROTO_VERSION;
@@ -59,6 +66,9 @@ void make_message_data_joy (message_t* msg, joy_t* joy)
    msg->pl.joystick.y2 = joy->axis[3];
 }
 
+/** create a text message
+ * @param msg pointer to message to fill
+ */
 void make_message_cmd (message_t* msg)
 {
    msg->version = PROTO_VERSION;
@@ -128,18 +138,19 @@ int main (int argc,char **argv)
       // send message to the server
       make_message_data_joy (&msg, &joy);
 
-      printf ("%6d %6d %6d %6d %d %d %d %d\n",
+      printf ("%6d %6d %6d %6d %d %d %d %d : ",
               msg.pl.joystick.x1, msg.pl.joystick.y1, msg.pl.joystick.x2, msg.pl.joystick.y2,
               msg.pl.joystick.b1, msg.pl.joystick.b2, msg.pl.joystick.b3, msg.pl.joystick.b4);
-
+      fflush (stdout);
       rc = sockWrite (sock_fd, (char*) &msg, msg.size);
-      printf ("%d bytes written\n",rc);
+//       printf ("%d bytes written\n",rc);
 
       /* print answer came from server */
       memset (szbuf, 0, BUFSIZ);
       if (sockGets(sock_fd,szbuf,sizeof(szbuf)-1)) {
-         (void) fprintf(stdout,"%s\n",szbuf);
-         (void) fflush(stdout);
+         fprintf(stdout,"%s",szbuf);
+         fprintf(stdout, "\r");
+         fflush(stdout);
       }
       // one command every 10ms
       usleep(10000);

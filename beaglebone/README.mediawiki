@@ -1,9 +1,9 @@
-== IllustraBot2 code for the BeagleBoneBlack ==
+IllustraBot2 code for the BeagleBoneBlack
 
-IllustraBot2 is a [fablab-lannion.org/ Fablab Lannion] project.
+IllustraBot2 is a [http://fablab-lannion.org/ Fablab Lannion] project.
 See [http://fablab-lannion.org/wiki/index.php?title=Cat%C3%A9gorie:IllustraBot2 Wiki] for documentation.
 
-=== Directories ===
+== Directories ==
 * arm_control : main arm control server
 * common : common libs for client and server
 * motor_test : simple program to test 1 motor
