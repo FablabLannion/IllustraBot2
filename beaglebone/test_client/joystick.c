@@ -48,6 +48,7 @@ int joy_init (joy_t* joy)
       return -1;
    }
 
+   // joystick kernel driver calls
    ioctl(joy->joy_fd, JSIOCGAXES , &joy->num_of_axis);
    ioctl(joy->joy_fd, JSIOCGBUTTONS , &joy->num_of_buttons);
    ioctl(joy->joy_fd, JSIOCGNAME(80), &joy->name);

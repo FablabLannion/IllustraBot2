@@ -1,8 +1,3 @@
-# Generated automatically from Makefile.in by configure.
-###############################################################
-# Makefile for hget
-# muquit, Jul-10-1999
-#####
 
 INCLUDES= -I. -I../common
 CC= gcc
@@ -30,5 +25,6 @@ $(PROGNAME): $(OBJS)
 clean:
 	rm -f $(OBJS) $(PROGNAME)
 
+# compile device tree overlay
 dtbo: arm_control-1.dts
 	dtc -O dtb -o arm_control-1-00A0.dtbo -b 0 -@ arm_control-1.dts

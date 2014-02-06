@@ -1,0 +1,31 @@
+arm control program
+
+This directory contains the program aimed to control the IllustraBot2 arm.
+
+== Files ==
+* Makefile : how to compile
+* README.mediawiki : you're reading it
+* SimpleGPIO.c : gpio access library code
+* SimpleGPIO.h : gpio access header
+* arm_control-1.dts : device tree overlay to access gpios
+* easydriver.c : easydriver/stesticks library code
+* easydriver.h : easydriver/stesticks library header
+* main.c : main server code
+* main.h : main code header
+* start.sh : script to start the program
+
+''See also ../common/ for usefull libraries shared between server and client.''
+
+== compilation / start ==
+ $> make
+will compile the server
+
+to start (as root) :
+ $> ./start.sh
+will apply the DTO and start the server listening on ''1337'' port
+
+== TODO ==
+* créer le DTO pour les 6 moteurs (voir pinout)
+* factoriser un peu le code pour le traitement des messages
+* ajouter le traitement des messages android
+* ajouter la gestion de MS2 pour gérer les ''full steps'' et ''1/4''

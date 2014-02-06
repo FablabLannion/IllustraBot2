@@ -6,6 +6,14 @@
 /* usleep delay between each step */
 #define SPEED_TO_uSLEEP(ed) ((60000000/ed->stepsPerRevolution)/ed->speed)
 
+/** driver initialisation
+ *
+ * @param ed easydriver structure pointer
+ * @param gpio_STEP gpio pin for steps (gpio number as seen by linux kernel)
+ * @param gpio_DIR gpio pin for direction (gpio number as seen by linux kernel)
+ * @param stepsPerRevolution number of steps for one motor revolution
+ * @param speed speed of rotation in RPM
+ */
 int ed_init (easydriver_t* ed, char gpio_STEP, char gpio_DIR, int stepsPerRevolution, float speed)
 {
    // init struct easydriver_t
@@ -24,7 +32,11 @@ int ed_init (easydriver_t* ed, char gpio_STEP, char gpio_DIR, int stepsPerRevolu
    return 0;
 } // ed_init
 
-
+/** rotate a arbitrary number of steps
+ *
+ * @param ed easydriver structure pointer
+ * @param numberOfSteps steps to rotate. >0: clockwise, <0:anticlockwise
+ */
 int ed_step(easydriver_t* ed, int numberOfSteps)
 {
    int i=0;
@@ -48,6 +60,9 @@ int ed_step(easydriver_t* ed, int numberOfSteps)
    return 0;
 } // ed_step
 
+/** Close the easydriver
+ * @param ed  easydriver structure pointer
+ */
 int ed_close (easydriver_t* ed)
 {
    gpio_unexport (&ed->gpio_DIR);
