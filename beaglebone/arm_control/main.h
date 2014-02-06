@@ -30,9 +30,9 @@ typedef struct {
    easydriver_t ed;             /**< driver structure for control data */
    int steps;                   /**< number of steps to move each time thread is unlocked */
 
-   pthread_t thread;            /**< the motor control thread */
+   pthread_t       thread;      /**< the motor control thread */
    pthread_mutex_t mutex;       /**< mutex to access this structure */
-   pthread_cond_t cond;         /**< blocking condition of the thread */
+   pthread_cond_t  cond;        /**< blocking condition of the thread */
 } motor_t;
 
 

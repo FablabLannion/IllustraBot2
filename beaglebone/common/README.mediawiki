@@ -1,0 +1,10 @@
+common libraries for server and client
+
+== Files ==
+* msock.c : socket library
+* msock.h : socket library header
+* proto.h : protocol struct definition. See /DOC/modelisation/ or http://fablab-lannion.org/wiki/index.php?title=IllustraBot2:protocole
+
+== TODO ==
+* use UDP instead of TCP
+
