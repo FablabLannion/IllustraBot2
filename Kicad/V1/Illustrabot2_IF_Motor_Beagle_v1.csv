@@ -1,14 +1,32 @@
-100nF;6;"C5 C6 C9 C10 C13 C14";
-10uF;2;"C3 C4";
-100uF;6;"C1 C2 C7 C8 C11 C12";
-LED;6;"D1 D2 D3 D4 D5 D6";
-JUMPER3;1;"JP1";
-JUMPER;6;"JP2 JP3 JP4 JP5 JP6 JP7";
-CONN_4;10;"P1 P2 P3 P4 P5 P6 P7 P8 P9 P10";
-CONN_23X2;2;"P11 P12";
-NPN;6;"Q1 Q2 Q3 Q4 Q5 Q6";TO92;BC337
-150;6;"R5 R7 R9 R13 R15 R17";
-10k;6;"R1 R2 R3 R4 R10 R12";
-82k;6;"R6 R8 R11 R14 R16 R18";
-RR8;1;"RR1";
-STEPSTICK;6;"U1 U2 U3 U4 U5 U6";
+ref;value;Champ1;Champ2;Champ3;Champ4;Champ5;Champ6;Champ7;Champ8;Nbr éléments
+C1,C2;100uF;;;;;;;;;2
+C3,C4;10uF;;;;;;;;;2
+C5,C6;100nF;;;;;;;;;2
+C7,C8;100uF;;;;;;;;;2
+C9,C10;100nF;;;;;;;;;2
+C11,C12;100uF;;;;;;;;;2
+C13,C14;100nF;;;;;;;;;2
+D1..D6;LED;;;;;;;;;6
+JP1;JUMPER3;;;;;;;;;1
+JP2..JP7;JUMPER;;;;;;;;;6
+P1..P7;CONN_4;;;;;;;;;7
+P8,P9;CONN_23X2;;;;;;;;;2
+P10..P12;CONN_4;;;;;;;;;3
+Q1..Q6;NPN;BC337;;;;;;;;6
+R1..R4;10kohm;;;;;;;;;4
+R5;150ohm;;;;;;;;;1
+R6;82kohm;;;;;;;;;1
+R7;150ohm;;;;;;;;;1
+R8;82kohm;;;;;;;;;1
+R9;150ohm;;;;;;;;;1
+R10;10kohm;;;;;;;;;1
+R11;82kohm;;;;;;;;;1
+R12;10kohm;;;;;;;;;1
+R13;150ohm;;;;;;;;;1
+R14;82kohm;;;;;;;;;1
+R15;150ohm;;;;;;;;;1
+R16;82kohm;;;;;;;;;1
+R17;150ohm;;;;;;;;;1
+R18;82kohm;;;;;;;;;1
+R19..R24;10kohm;;;;;;;;;6
+U1..U1U6;STEPSTICK;;;;;;;;;6
