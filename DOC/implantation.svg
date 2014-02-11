@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="emplacement.svg">
+   sodipodi:docname="implantation.svg">
   <defs
      id="defs4">
     <marker
@@ -50,8 +50,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="243.85218"
-     inkscape:cy="489.07777"
+     inkscape:cx="459.39645"
+     inkscape:cy="319.37215"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -207,7 +207,7 @@
          sodipodi:role="line"
          id="tspan6035">bornier = 20x10mm ?</tspan><tspan
          sodipodi:role="line"
-         id="tspan6037"></tspan><tspan
+         id="tspan6037" /><tspan
          sodipodi:role="line"
          id="tspan6039">légende:</tspan><tspan
          sodipodi:role="line"
@@ -645,31 +645,23 @@
        id="text3888-5"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         id="tspan6557">CM1-DIR:   P8-7    CM3-DIR:  P8-18   CM5-DIR:   P9-14</tspan><tspan
+         id="tspan3144">CM1-DIR:   P8-8    CM3-DIR:  P8-17   CM5-DIR:   P9-14</tspan><tspan
          sodipodi:role="line"
-         id="tspan6559">CM1-STEP:  P8-9    CM3-STEP: P8-16   CM5-STEP:  P9-16</tspan><tspan
+         id="tspan3146">CM1-STEP:  P8-10   CM3-STEP: P8-15   CM5-STEP:  P9-16</tspan><tspan
          sodipodi:role="line"
-         id="tspan6561">CM1-MS2:   P8-11   CM3-MS2:  P8-14   CM5-MS2:   P9-18</tspan><tspan
+         id="tspan3148">CM1-MS2:   P8-12   CM3-MS2:  P8-13   CM5-MS2:   P9-18</tspan><tspan
          sodipodi:role="line"
-         id="tspan6563"></tspan><tspan
+         id="tspan3150"></tspan><tspan
          sodipodi:role="line"
-         id="tspan6565">CM2-DIR:   P8-13   CM4-DIR:  P8-12   CM6-DIR:   P9-22</tspan><tspan
+         id="tspan3152">CM2-DIR:   P8-14   CM4-DIR:  P8-11   CM6-DIR:   P9-22</tspan><tspan
          sodipodi:role="line"
-         id="tspan6567">CM2-STEP:  P8-15   CM4-STEP: P8-10   CM6-STEP:  P9-24</tspan><tspan
+         id="tspan3154">CM2-STEP:  P8-16   CM4-STEP: P8-9    CM6-STEP:  P9-24</tspan><tspan
          sodipodi:role="line"
-         id="tspan6569">CM2-MS2:   P8-17   CM4-MS2:  P8-8    CM6-MS2:   P9-26</tspan><tspan
+         id="tspan3156">CM2-MS2:   P8-18   CM4-MS2:  P8-7    CM6-MS2:   P9-26</tspan><tspan
          sodipodi:role="line"
-         id="tspan6571"></tspan><tspan
+         id="tspan3158"></tspan><tspan
          sodipodi:role="line"
-         id="tspan6573"></tspan><tspan
-         sodipodi:role="line"
-         id="tspan6575"></tspan><tspan
-         sodipodi:role="line"
-         id="tspan6577"></tspan><tspan
-         sodipodi:role="line"
-         id="tspan6579"></tspan><tspan
-         sodipodi:role="line"
-         id="tspan6581"></tspan></text>
+         id="tspan3160"></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New Bold"
@@ -704,43 +696,43 @@
          sodipodi:role="line"
          id="tspan6670"
          x="874.48535"
-         y="461.14441"></tspan><tspan
+         y="461.14441" /><tspan
          sodipodi:role="line"
          id="tspan6672"
          x="874.48535"
-         y="476.14441"></tspan><tspan
+         y="476.14441" /><tspan
          sodipodi:role="line"
          id="tspan6674"
          x="874.48535"
-         y="491.14441"></tspan><tspan
+         y="491.14441" /><tspan
          sodipodi:role="line"
          id="tspan6676"
          x="874.48535"
-         y="506.14441"></tspan><tspan
+         y="506.14441" /><tspan
          sodipodi:role="line"
          id="tspan6678"
          x="874.48535"
-         y="521.14441"></tspan><tspan
+         y="521.14441" /><tspan
          sodipodi:role="line"
          id="tspan6680"
          x="874.48535"
-         y="536.14441"></tspan><tspan
+         y="536.14441" /><tspan
          sodipodi:role="line"
          id="tspan6682"
          x="874.48535"
-         y="551.14441"></tspan><tspan
+         y="551.14441" /><tspan
          sodipodi:role="line"
          id="tspan6684"
          x="874.48535"
-         y="566.14441"></tspan><tspan
+         y="566.14441" /><tspan
          sodipodi:role="line"
          id="tspan6686"
          x="874.48535"
-         y="581.14441"></tspan><tspan
+         y="581.14441" /><tspan
          sodipodi:role="line"
          id="tspan6688"
          x="874.48535"
-         y="596.14441"></tspan></text>
+         y="596.14441" /></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 394,339.09448 c 0,25 0,25 0,25 l -138,0 0,56"
@@ -807,12 +799,42 @@
          sodipodi:role="line"
          id="tspan6720"
          x="33.941124"
-         y="530.16199"></tspan></text>
+         y="530.16199" /></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.9992126;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none"
        d="m 161.92745,200.32937 c 73.53911,36.76955 73.53911,36.76955 73.53911,36.76955"
        id="path6722"
        inkscape:connector-curvature="0"
        transform="translate(0,308.26769)" />
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New"
+       x="358.50314"
+       y="481.72702"
+       id="text3162"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3164"
+         x="358.50314"
+         y="481.72702">1</tspan><tspan
+         sodipodi:role="line"
+         x="358.50314"
+         y="491.72702"
+         id="tspan3166">2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:8px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier New;-inkscape-font-specification:Courier New"
+       x="360.45868"
+       y="634.06781"
+       id="text3162-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3164-7"
+         x="360.45868"
+         y="634.06781">1</tspan><tspan
+         sodipodi:role="line"
+         x="360.45868"
+         y="644.06781"
+         id="tspan3166-4">2</tspan></text>
   </g>
 </svg>
