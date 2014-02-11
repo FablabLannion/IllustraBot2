@@ -1,4 +1,4 @@
-update=08/02/2014 18:44:43
+update=11/02/2014 22:27:47
 version=1
 last_client=eeschema
 [cvpcb]
@@ -10,12 +10,12 @@ EquName1=devcms
 version=1
 [pcbnew]
 version=1
-LastNetListRead=
-UseCmpFile=1
-PadDrill=0.600000000000
-PadDrillOvalY=0.600000000000
-PadSizeH=1.500000000000
-PadSizeV=1.500000000000
+LastNetListRead=Illustrabot2_IF_Motor_Beagle_v1.net
+UseCmpFile=0
+PadDrill=3.048000000000
+PadDrillOvalY=3.048000000000
+PadSizeH=4.064000000000
+PadSizeV=4.064000000000
 PcbTextSizeV=1.500000000000
 PcbTextSizeH=1.500000000000
 PcbTextThickness=0.300000000000

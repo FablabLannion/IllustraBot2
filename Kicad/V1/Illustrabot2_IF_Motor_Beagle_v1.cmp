@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 08/02/2014 18:25:26
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 11/02/2014 19:09:56
 
 BeginCmp
 TimeStamp = /52F3BDB8;
@@ -148,48 +148,6 @@ IdModule  = SIL-3;
 EndCmp
 
 BeginCmp
-TimeStamp = /52F3BDDD;
-Reference = JP2;
-ValeurCmp = JUMPER;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F3AD54;
-Reference = JP3;
-ValeurCmp = JUMPER;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F3BE56;
-Reference = JP4;
-ValeurCmp = JUMPER;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F3B5FB;
-Reference = JP5;
-ValeurCmp = JUMPER;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F3BECE;
-Reference = JP6;
-ValeurCmp = JUMPER;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F3B678;
-Reference = JP7;
-ValeurCmp = JUMPER;
-IdModule  = SIL-2;
-EndCmp
-
-BeginCmp
 TimeStamp = /52F3BDA2;
 Reference = P1;
 ValeurCmp = CONN_4;
@@ -271,6 +229,34 @@ TimeStamp = /52F3B63D;
 Reference = P12;
 ValeurCmp = CONN_4;
 IdModule  = bornier4;
+EndCmp
+
+BeginCmp
+TimeStamp = /52FA6A0E;
+Reference = P13;
+ValeurCmp = CONN_1;
+IdModule  = 1pin;
+EndCmp
+
+BeginCmp
+TimeStamp = /52FA6A1D;
+Reference = P14;
+ValeurCmp = CONN_1;
+IdModule  = 1pin;
+EndCmp
+
+BeginCmp
+TimeStamp = /52FA6A2C;
+Reference = P15;
+ValeurCmp = CONN_1;
+IdModule  = 1pin;
+EndCmp
+
+BeginCmp
+TimeStamp = /52FA6A3B;
+Reference = P16;
+ValeurCmp = CONN_1;
+IdModule  = 1pin;
 EndCmp
 
 BeginCmp
@@ -438,48 +424,6 @@ BeginCmp
 TimeStamp = /52EA8372;
 Reference = R18;
 ValeurCmp = 82kohm;
-IdModule  = R3;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F4EE64;
-Reference = R19;
-ValeurCmp = 10kohm;
-IdModule  = R3;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F4D7DB;
-Reference = R20;
-ValeurCmp = 10kohm;
-IdModule  = R3;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F4F3A5;
-Reference = R21;
-ValeurCmp = 10kohm;
-IdModule  = R3;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F4E613;
-Reference = R22;
-ValeurCmp = 10kohm;
-IdModule  = R3;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F4F3B2;
-Reference = R23;
-ValeurCmp = 10kohm;
-IdModule  = R3;
-EndCmp
-
-BeginCmp
-TimeStamp = /52F4E927;
-Reference = R24;
-ValeurCmp = 10kohm;
 IdModule  = R3;
 EndCmp
 
