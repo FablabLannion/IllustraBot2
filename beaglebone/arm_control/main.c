@@ -61,6 +61,13 @@ void dump_message (message_t* msg)
       case T_COMMAND:
          printf (" command: %s\n",msg->pl.txt);
          break;
+      case T_DATA_AND:
+         printf (" b1:%d, b2:%d, b3:%d, b4:%d b5:%d\n",
+                  msg->pl.android.b1, msg->pl.android.b2, msg->pl.android.b3,
+                  msg->pl.android.b4, msg->pl.android.b5);
+         printf ("x:%d, y:%d, z:%d\n",
+                  msg->pl.android.x, msg->pl.android.y, msg->pl.android.z);
+         break;
       default:
          printf ("unknown message type:%d\n",msg->type);
          break;

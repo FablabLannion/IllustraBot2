@@ -34,8 +34,8 @@ typedef struct message {
          float   y;     /**< accel Y */
          float   z;     /**< accel Z */
       } nunchuk;
-      
-      /** joystick payload 
+
+      /** joystick payload
        */
       struct {
          uint8_t b1;    /**< button 1 */
@@ -47,6 +47,20 @@ typedef struct message {
          int y1;        /**< axis 1 Y */
          int y2;        /**< axis 2 Y */
       } joystick;
+
+      /** android payload
+       */
+      struct {
+         uint8_t b1;    /**< button 1 */
+         uint8_t b2;    /**< button 2 */
+         uint8_t b3;    /**< button 3 */
+         uint8_t b4;    /**< button 4 */
+         uint8_t b5;    /**< button 5 */
+         int x;         /**< axis X * 100 */
+         int y;         /**< axis Y * 100 */
+         int z;         /**< axis Z * 100 */
+      } android;
+
    } pl;
 } message_t;
 
