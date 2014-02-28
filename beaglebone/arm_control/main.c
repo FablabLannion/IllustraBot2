@@ -209,6 +209,7 @@ int main (int argc,char **argv)
    }
 
    /* we will be here only when a client connects */
+   printf ("client connected\n");
 
    /* get client informations */
    rc=getPeerInfo(sock_fd,szclient_host,szclient_ip,(u_short*)&client_port);
@@ -228,6 +229,7 @@ int main (int argc,char **argv)
       // get message header
       rc = sockRead (sock_fd, szbuf, HEADER_SIZE);
       if (rc < 0) {
+         printf("read failed :(\n");
          // read failed
          break;
       }

@@ -12,6 +12,7 @@ typedef uint8_t msgType_t;      /** message type. See message_t.type */
 #define T_COMMAND 0
 #define T_DATA_WII 1
 #define T_DATA_JOY 2
+#define T_DATA_AND 3
 
 /** Message send from client to server
  */
