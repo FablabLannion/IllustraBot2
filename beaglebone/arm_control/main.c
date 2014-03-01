@@ -83,7 +83,7 @@ void hex_dump_message (message_t* msg)
    int i;
 
    for (i=0;i < sizeof(message_t);i++) {
-      printf ("%02X ",ptr[i]);
+      printf ("%02X ",(uint8_t) ptr[i]);
    }
    printf("\n");
 }// hex_dump_message
@@ -240,7 +240,7 @@ int main (int argc,char **argv)
          rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
          if (rc) {
             msg = (message_t*) szbuf;
-            hex_dump_message( (message_t*) szbuf);
+            hex_dump_message( msg);
             dump_message( (message_t*) szbuf);
 
             // message treatment

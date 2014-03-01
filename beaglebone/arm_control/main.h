@@ -5,16 +5,21 @@
 #include <pthread.h>
 #include "easydriver.h"
 
-#define NB_MOTORS 2
+#define NB_MOTORS 6
 
-/** define pins for every motor */
-char motor_pins[NB_MOTORS][2] = {
-   /* {STEP, DIR} */
-   {45, 44}, /* motor0: P8_11, P8_12 */
-   {23, 26}, /* motor1; P8_13, P8_14 */
+/** define gpio pins for every motors */
+char motor_pins[NB_MOTORS][3] = {
+   /* {STEP, DIR, MS2} */
+   {68, 67, 44}, /* motor0: P8_10, P8_8,  P8_12 */
+   {46, 26, 65}, /* motor1; P8_16, P8_14, P8_18 */
+   {47, 27, 23}, /* motor2; P8_15, P8_17, P8_13 */
+   {69, 45, 66}, /* motor3; P8_9,  P8_11, P8_7  */
+   {51, 50,  4}, /* motor4; P9_16, P9_14, P9_18 */
+   {15,  2, 14}, /* motor5; P9_24, P9_22, P9_26 */
 };
 #define IDX_STEP 0
 #define IDX_DIR  1
+#define IDX_MS2  2
 
 /** Motors parameters */
 // steps per revolution
