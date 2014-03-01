@@ -8,6 +8,7 @@ You can find more info on the [wiki](http://fablab-lannion.org/wiki/index.php?ti
 
 List of directories :
 * DOC : documentation (datasheets, ...)
+* Kicad : electronic scheme
 * android : well, android application
 * beaglebone : soft running on the arm control platform
 

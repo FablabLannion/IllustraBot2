@@ -6,5 +6,5 @@ common libraries for server and client
 * proto.h : protocol struct definition. See /DOC/modelisation/ or http://fablab-lannion.org/wiki/index.php?title=IllustraBot2:protocole
 
 == TODO ==
-* use UDP instead of TCP
+* <strike>use UDP instead of TCP</strike> cancelled
 
