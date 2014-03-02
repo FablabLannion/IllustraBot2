@@ -24,10 +24,24 @@
                 __overlay__ {
                         arm_control: pinmux_motor {
                                 pinctrl-single,pins = <
-                                 0x034 0x07  /* P8_11 45 OUTPUT  MODE7 */
+                                 0x098 0x07  /* P8_10 68 OUTPUT  MODE7 */
+                                 0x094 0x07  /* P8_08 67 OUTPUT  MODE7 */
                                  0x030 0x07  /* P8_12 44 OUTPUT  MODE7 */
-                                 0x024 0x07  /* P8_13 23 OUTPUT  MODE7 */
+                                 0x038 0x07  /* P8_16 46 OUTPUT  MODE7 */
                                  0x028 0x07  /* P8_14 26 OUTPUT  MODE7 */
+                                 0x08c 0x07  /* P8_18 65 OUTPUT  MODE7 */
+                                 0x03c 0x07  /* P8_15 47 OUTPUT  MODE7 */
+                                 0x02c 0x07  /* P8_17 27 OUTPUT  MODE7 */
+                                 0x024 0x07  /* P8_13 23 OUTPUT  MODE7 */
+                                 0x09c 0x07  /* P8_09 69 OUTPUT  MODE7 */
+                                 0x034 0x07  /* P8_11 45 OUTPUT  MODE7 */
+                                 0x090 0x07  /* P8_07 66 OUTPUT  MODE7 */
+                                 0x04c 0x07  /* P9_16 51 OUTPUT  MODE7 */
+                                 0x048 0x07  /* P9_14 50 OUTPUT  MODE7 */
+                                 0x158 0x07  /* P9_18  4 OUTPUT  MODE7 */
+                                 0x184 0x07  /* P9_24 15 OUTPUT  MODE7 */
+                                 0x150 0x07  /* P9_22  2 OUTPUT  MODE7 */
+                                 0x180 0x07  /* P9_26 14 OUTPUT  MODE7 */
 
                                  /* OUTPUT  GPIO(mode7) 0x07 pulldown, 0x17 pullup, 0x?f no pullup/down */
                                  /* INPUT   GPIO(mode7) 0x27 pulldown, 0x37 pullup, 0x?f no pullup/down */
