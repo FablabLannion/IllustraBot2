@@ -27,6 +27,18 @@ char motor_pins[NB_MOTORS][3] = {
 #define MIN_SPEED 500
 #define MAX_SPEED 40000
 
+/** control range parameters */
+// joystick
+#define MIN_RANGE_JOY_AXIS 0
+#define MAX_RANGE_JOY_AXIS 32767
+// android
+#define MIN_RANGE_AND_PITCH 0
+#define MAX_RANGE_AND_PITCH 180
+#define MIN_RANGE_AND_ROLL 0
+#define MAX_RANGE_AND_ROLL 90
+#define MIN_RANGE_AND_AZIM 0
+#define MAX_RANGE_AND_AZIM 0
+
 /**
  * Motor structure
  */

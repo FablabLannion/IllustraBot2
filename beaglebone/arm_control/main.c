@@ -65,8 +65,8 @@ void dump_message (message_t* msg)
          printf (" b1:%d, b2:%d, b3:%d, b4:%d b5:%d\n",
                   msg->pl.android.b1, msg->pl.android.b2, msg->pl.android.b3,
                   msg->pl.android.b4, msg->pl.android.b5);
-         printf ("x:%d, y:%d, z:%d\n",
-                  msg->pl.android.x, msg->pl.android.y, msg->pl.android.z);
+         printf ("azimuth:%d, pitch:%d, roll:%d\n",
+                  msg->pl.android.azimuth, msg->pl.android.pitch, msg->pl.android.roll);
          break;
       default:
          printf ("unknown message type:%d\n",msg->type);
@@ -166,6 +166,37 @@ void close_motors (void)
    }
 }//close_motors
 
+/** Motor command function
+ *
+ * @param nMot motor number [0:NB_MOTORS]
+ * @param speed motor speed [MIN_SPEED:MAX_SPEED]
+ * @param steps motor steps <0 or >0
+ *
+ */
+int command_motor (uint8_t nMot, int speed, int steps) {
+
+   unsigned int var = 0;
+   int rc = 0;
+
+//    gpio_get_value(&captors[nMot], &var);//var=1 if HIGH Level, var=0 if LOW Level
+
+   if (steps != 0) {
+      // lock mutex to access motor data
+      pthread_mutex_lock ( &motors[nMot].mutex );
+      // map joystick axe_value from in_min-in_max, to out_min,-out_max
+      motors[0].ed.speed = speed; // map (axe_value, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED);
+      // TODO: avoid magic number, add better step computation
+      motors[nMot].steps = steps;
+      // unlock thread
+      //pthread_cond_signal() ne renvoient jamais de code d'erreur.
+      rc = pthread_cond_signal ( &motors[nMot].cond );
+      // unlock mutex for motor data
+      pthread_mutex_unlock ( &motors[nMot].mutex );
+   }
+   return rc;
+
+} //command_motor
+
 
 /**** MAIN ****/
 
@@ -176,7 +207,7 @@ int main (int argc,char **argv)
    rc,
    client_port,
    port,
-   sock_fd;
+   sock_fd, v;
 
    char
    szclient_host[64],
@@ -247,38 +278,73 @@ int main (int argc,char **argv)
             switch (msg->type) {
                case T_DATA_JOY:
                   //             dump_message( (message_t*) szbuf);
-                  // TODO: create generic function to avoid ugly code duplication !
-                  if (msg->pl.joystick.x1 != 0) {
-                     // lock mutex to access motor data
-                     pthread_mutex_lock ( &motors[0].mutex );
-                     // map joystick x1 from 0-32767 to MIN_SPEED-MAX_SPEED
-                     motors[0].ed.speed = map (msg->pl.joystick.x1, 0, 32767, MIN_SPEED, MAX_SPEED);
-                     // TODO: avoid magic number, add better step computation
-                     if (msg->pl.joystick.x1 > 0) {
-                        motors[0].steps = 16;
+                  if (msg->pl.joystick.b1 == 0) {
+                     // moteur 1 : epaule
+                     if (msg->pl.joystick.x1 != 0) {
+                        v = msg->pl.joystick.x1;
+                        command_motor ( 0, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
-                     else if (msg->pl.joystick.x1 < 0) {
-                        motors[0].steps = -16;
+                     // motor 2 : axe vertical
+                     if (msg->pl.joystick.y1 != 0) {
+                        v = msg->pl.joystick.y1;
+                        command_motor ( 1, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
-                     // unlock thread
-                     rc = pthread_cond_signal ( &motors[0].cond );
-                     // unlock mutex for motor data
-                     pthread_mutex_unlock ( &motors[0].mutex );
+                     // moteur 3 :
+                     if (msg->pl.joystick.x2 != 0) {
+                        v = msg->pl.joystick.x2;
+                        command_motor ( 2, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                     }
+                     if (msg->pl.joystick.y2 != 0) {
+                        v = msg->pl.joystick.y2;
+                        command_motor ( 3, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                     }
                   }
-                  if (msg->pl.joystick.y1 != 0) {
-                     pthread_mutex_lock ( &motors[1].mutex );
-                     // map joystick y1 from 0-32767 to MIN_SPEED-MAX_SPEED
-                     motors[1].ed.speed = map (msg->pl.joystick.y1, 0, 32767, MIN_SPEED, MAX_SPEED);
-                     if (msg->pl.joystick.y1 > 0) {
-                        motors[1].steps = 16;
+                  else { // msg->pl.joystick.b1 != 0
+                     if (msg->pl.joystick.x1 != 0) {
+                        v = msg->pl.joystick.x1;
+                        command_motor ( 4, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
-                     else if (msg->pl.joystick.y1 < 0) {
-                        motors[1].steps = -16;
+                     if (msg->pl.joystick.y1 != 0) {
+                        v = msg->pl.joystick.y1;
+                        command_motor ( 5, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
-                     rc = pthread_cond_signal ( &motors[1].cond );
-                     pthread_mutex_unlock ( &motors[1].mutex );
                   }
-                  break;
+                  break; // case T_DATA_JOY:
+               case T_DATA_AND:
+                  // pitch and roll are *2
+                  msg->pl.android.pitch -= MAX_RANGE_AND_PITCH;
+                  msg->pl.android.roll  -= MAX_RANGE_AND_ROLL;
+
+                  if (msg->pl.android.b1 == 0) {
+                     if (msg->pl.android.pitch != 0) {
+                        v = msg->pl.android.pitch;
+                        command_motor ( 0, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                     }
+                     if (msg->pl.android.roll != 0) {
+                        v = msg->pl.android.roll;
+                        command_motor ( 1, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                     }
+                     if (msg->pl.android.azimuth != 0) {
+                        v = msg->pl.android.azimuth;
+                        command_motor ( 2, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                     }
+                  }
+                  else { //msg->pl.android.b1 != 0
+                     if (msg->pl.android.pitch != 0) {
+                        v = msg->pl.android.pitch;
+                        command_motor ( 3, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                     }
+                     if (msg->pl.android.roll != 0) {
+                        v = msg->pl.android.roll;
+                        command_motor ( 4, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                     }
+                     if (msg->pl.android.azimuth != 0) {
+                        v = msg->pl.android.azimuth;
+                        command_motor ( 5, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                     }
+                  }
+
+                  break; // case T_DATA_AND:
             }
          }
       }
