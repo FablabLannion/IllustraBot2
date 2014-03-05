@@ -56,7 +56,6 @@ typedef struct message {
          uint8_t b2;    /**< button 2 */
          uint8_t b3;    /**< button 3 */
          uint8_t b4;    /**< button 4 */
-         uint8_t b5;    /**< button 5 */
          int azimuth;   /**< axis X * 100 */
          int pitch;     /**< axis Y * 100 */
          int roll;      /**< axis Z * 100 */

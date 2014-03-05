@@ -62,9 +62,9 @@ void dump_message (message_t* msg)
          printf (" command: %s\n",msg->pl.txt);
          break;
       case T_DATA_AND:
-         printf (" b1:%d, b2:%d, b3:%d, b4:%d b5:%d\n",
+         printf (" b1:%d, b2:%d, b3:%d, b4:%d\n",
                   msg->pl.android.b1, msg->pl.android.b2, msg->pl.android.b3,
-                  msg->pl.android.b4, msg->pl.android.b5);
+                  msg->pl.android.b4);
          printf ("azimuth:%d, pitch:%d, roll:%d\n",
                   msg->pl.android.azimuth, msg->pl.android.pitch, msg->pl.android.roll);
          break;
