@@ -37,20 +37,64 @@
 	
 		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>	
 		<script type="text/javascript" src="js/ib2_tools.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>		
 		<script type="text/javascript" src="plugins/tcpClient.js"></script>   
 		<script type="text/javascript" charset="utf-8" src="plugins/toast.js"></script>
+
 </head>
 
 <div class="container">
 	<div class="row clearfix">
+
 		<div class="col-md-4 column">
-			<button type="button" onclick="connect();" class="btn btn-success btn-block">aaaconnecllloooo</button>
-		</div>
+			<button type="button" onclick="startTraffic();" class="btn btn-success btn-block">startTraffic</button>
+		</div>	
 		<div class="col-md-4 column">
-			<button type="button" onclick="sendTCPFrame();" class="btn btn-success btn-block">sendFrame</button>
+			<button type="button" onclick="stopTraffic();" class="btn btn-success btn-block">stopTraffic</button>
+		</div>	
+		
+		<div class="col-md-4 column">
+			<button type="button" onclick="connect();" class="btn btn-success btn-block">Open Socket</button>		
 		</div>		
+		<div class="col-md-4 column">
+			<button type="button" onclick="sendTCPPattern();" class="btn btn-success btn-block">sendPattern</button>
+		</div>			
+		
+		
+			
+	
 	</div>
+	
+			<div id="log"></div>
 
 </div>
 </body>
 </html>
+
+
+	<script type="text/javascript">
+		
+		if(window.DeviceMotionEvent) {
+		  window.addEventListener("devicemotion", process, false);
+		  console.log("devicemotion  detected :-)");		  
+		} else {
+		  console.log("devicemotion not detected :-(");
+		}		
+
+		var alpha = "aaa";
+		  var beta = "bbb";
+		  var gamma = "ggg";		
+		
+		
+		document.getElementById("log").innerHTML = "<ul><li>Alpha : " + alpha + "</li><li>Beta : " + beta + "</li><li>Gamma : " + gamma + "</li></ul>"; 
+		
+		
+		function process(event) {
+
+		  //document.getElementById("log").innerHTML = "<ul><li>Xo : " + x + "</li><li>Y : " + y + "</li><li>Z : " + z + "</li></ul>"; 
+		  updateRobotPosition(event);
+		}
+				
+		
+		app.initialize();
+	</script>
