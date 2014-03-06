@@ -57,9 +57,9 @@ int ed_step(easydriver_t* ed, int numberOfSteps)
 
    for(i=0; i<numberOfSteps; i++){
       gpio_set_value(&ed->gpio_STEP, LOW);
-//       usleep(1);
+      usleep(1000);
       gpio_set_value(&ed->gpio_STEP, HIGH);
-//       usleep(1);
+      usleep(1000);
       usleep( SPEED_TO_uSLEEP(ed) );
    }
    return 0;
