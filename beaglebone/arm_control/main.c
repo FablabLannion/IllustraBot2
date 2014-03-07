@@ -311,9 +311,10 @@ int main (int argc,char **argv)
                   }
                   break; // case T_DATA_JOY:
                case T_DATA_AND:
-                  // pitch and roll are *2
-                  msg->pl.android.pitch -= MAX_RANGE_AND_PITCH;
-                  msg->pl.android.roll  -= MAX_RANGE_AND_ROLL;
+                  // azimuth, pitch and roll are *2
+                  msg->pl.android.pitch   -= MAX_RANGE_AND_PITCH/2;
+                  msg->pl.android.roll    -= MAX_RANGE_AND_ROLL/2;
+                  msg->pl.android.azimuth -= MAX_RANGE_AND_AZIM/2;
 
                   if (msg->pl.android.b1 == 0) {
                      if (msg->pl.android.pitch != 0) {
