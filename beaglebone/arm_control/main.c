@@ -37,6 +37,13 @@
 
 motor_t motors[NB_MOTORS];      /**< array with all controled motors */
 
+void test_branch_on_damien (){
+printf ("received message:\n");
+
+}
+
+
+
 /** Display a received message from the client
  *
  * "Pretty" print of the message. display differs following message type.
