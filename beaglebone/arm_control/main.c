@@ -37,12 +37,6 @@
 
 motor_t motors[NB_MOTORS];      /**< array with all controled motors */
 
-void test_branch_on_damien (){
-printf ("received message:\n");
-
-}
-
-
 
 /** Display a received message from the client
  *
@@ -182,7 +176,7 @@ void close_motors (void)
  */
 int command_motor (uint8_t nMot, int speed, int steps) {
 
-   unsigned int var = 0;
+//   unsigned int var = 0;
    int rc = 0;
 
 //    gpio_get_value(&captors[nMot], &var);//var=1 if HIGH Level, var=0 if LOW Level

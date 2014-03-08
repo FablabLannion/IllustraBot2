@@ -23,6 +23,7 @@ typedef struct {
 int ed_init (easydriver_t* ed, char gpio_STEP, char gpio_DIR, char gpio_MS2, int stepsPerRevolution, float speed);
 int ed_close (easydriver_t* ed);
 
+int ed_poll(easydriver_t* ed);//damien
 int ed_step (easydriver_t* ed, int numberOfSteps);
 int ed_precision (easydriver_t* ed, char precision);
 

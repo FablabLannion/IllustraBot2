@@ -78,6 +78,15 @@ int gpio_export(gpio_t* gpio, char ngpio)
                 perror("gpio/open-direction");
                 return fd;
         }
+        
+        // open edge file(damien)
+        snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/edge", ngpio);
+        gpio->fd_edge = open(buf, O_WRONLY);
+        if (gpio->fd_edge < 0) {
+                perror("gpio/open-edge");
+                return fd;
+        }
+
 
 	return 0;
 }
@@ -92,6 +101,7 @@ int gpio_unexport(gpio_t* gpio)
 
         close (gpio->fd_value);
         close (gpio->fd_direction);
+        close (gpio->fd_edge);//damien
 
 	fd = open(SYSFS_GPIO_DIR "/unexport", O_WRONLY);
 	if (fd < 0) {
@@ -154,7 +164,7 @@ int gpio_get_value(gpio_t* gpio, unsigned int *value)
 /****************************************************************
  * gpio_set_edge
  ****************************************************************/
-
+/*
 int gpio_set_edge(unsigned int gpio, char *edge)
 {
 	int fd;
@@ -172,6 +182,17 @@ int gpio_set_edge(unsigned int gpio, char *edge)
 	close(fd);
 	return 0;
 }
+*/
+
+int gpio_set_edge(gpio_t* gpio, char *edge)//damien
+{
+
+   lseek (gpio->fd_edge, 0, SEEK_SET);
+   write(gpio->fd_edge, edge, strlen(edge) + 1);
+
+	return 0;
+}
+
 
 /****************************************************************
  * gpio_fd_open
@@ -183,6 +204,23 @@ int gpio_fd_open(unsigned int gpio)
 	char buf[MAX_BUF];
 
 	snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/value", gpio);
+
+	fd = open(buf, O_RDONLY | O_NONBLOCK );
+	if (fd < 0) {
+		perror("gpio/fd_open");
+	}
+	return fd;
+}
+
+int gpio_fd_open_g(gpio_t* gpio)//damien
+{
+	int fd;
+	char buf[MAX_BUF];
+	unsigned int num_gpio;
+	
+	num_gpio = atoi(&gpio->num);
+	
+	snprintf(buf, sizeof(buf), SYSFS_GPIO_DIR "/gpio%d/value", num_gpio);
 
 	fd = open(buf, O_RDONLY | O_NONBLOCK );
 	if (fd < 0) {
