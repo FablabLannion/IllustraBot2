@@ -142,7 +142,7 @@ int init_motors(void)
 
    for (i=0; i< NB_MOTORS; i++) {
       sprintf (motors[i].name, "motor %" PRIdPTR, i+1);
-      rc = ed_init (&motors[i].ed, motor_pins[i][IDX_STEP], motor_pins[i][IDX_DIR], motor_pins[i][IDX_MS2], STEPS_PR, 10);
+      rc = ed_init (&motors[i].ed, motor_pins[i][IDX_STEP], motor_pins[i][IDX_DIR], motor_pins[i][IDX_MS2], motor_pins[i][IDX_POS], STEPS_PR, 10);
       motors[i].ed.speed = MIN_SPEED;
 
       pthread_mutex_init ( &motors[i].mutex, NULL );

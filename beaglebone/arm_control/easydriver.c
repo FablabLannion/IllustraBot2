@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <poll.h>
+#include <stdio.h>
 
 /* usleep delay between each step */
 #define SPEED_TO_uSLEEP(ed) ((60000000/ed->stepsPerRevolution)/ed->speed)
@@ -13,10 +14,11 @@
  * @param gpio_STEP gpio pin for steps (gpio number as seen by linux kernel)
  * @param gpio_DIR gpio pin for direction (gpio number as seen by linux kernel)
  * @param gpio_MS2 gpio pin for MS2 (gpio number as seen by linux kernel)
+ * @param gpio_POS gpio pin for position detection (gpio number as seen by linux kernel)
  * @param stepsPerRevolution number of steps for one motor revolution
  * @param speed speed of rotation in RPM
  */
-int ed_init (easydriver_t* ed, char gpio_STEP, char gpio_DIR, char gpio_MS2, int stepsPerRevolution, float speed)
+int ed_init (easydriver_t* ed, char gpio_STEP, char gpio_DIR, char gpio_MS2, char gpio_POS, int stepsPerRevolution, float speed)
 {
    // init struct easydriver_t
    memset (ed, 0, sizeof(easydriver_t));
@@ -27,12 +29,14 @@ int ed_init (easydriver_t* ed, char gpio_STEP, char gpio_DIR, char gpio_MS2, int
    gpio_export (&ed->gpio_STEP, gpio_STEP);
    gpio_export (&ed->gpio_DIR, gpio_DIR);
    gpio_export (&ed->gpio_MS2, gpio_MS2);
+   gpio_export (&ed->gpio_POS, gpio_POS);
 
    gpio_set_dir ( &ed->gpio_DIR, OUTPUT_PIN);
    gpio_set_dir ( &ed->gpio_STEP,  OUTPUT_PIN);
-   gpio_set_dir ( &ed->gpio_MS2,  INPUT_PIN);//read input pin
+   gpio_set_dir ( &ed->gpio_MS2,  OUTPUT_PIN);
+   gpio_set_dir ( &ed->gpio_POS,  INPUT_PIN);//read input pin
 
-   gpio_set_edge(&ed->gpio_MS2, "rising");//damien
+   gpio_set_edge(&ed->gpio_POS, "rising");//damien
 
    gpio_set_value ( &ed->gpio_DIR, ed->direction);
    ed_precision ( ed, FULL );
@@ -45,11 +49,11 @@ int ed_init (easydriver_t* ed, char gpio_STEP, char gpio_DIR, char gpio_MS2, int
  *
  * @param ed easydriver structure pointer
  * @return -1 (error), 0 (timeout), 1(risingedge)
- * 
+ *
  */
 
 int ed_poll(easydriver_t* ed){//damien
-	
+
    struct pollfd fdset[1];
    int nfds = 1;
    int gpio_fd, timeout, rc;
@@ -57,26 +61,26 @@ int ed_poll(easydriver_t* ed){//damien
    char *buf[2];
    int etat_gpio;
 
-   gpio = atoi(&ed->gpio_MS2.num);
+   gpio = atoi(&ed->gpio_POS.num);
    gpio_fd = gpio_fd_open(gpio);
 //  gpio_fd = gpio_fd_open_g(&ed->gpio_MS2);
 
    timeout = POLL_TIMEOUT;//check time_out value
- 
+
    memset((void*)fdset, 0, sizeof(fdset));
 
    fdset[0].fd = gpio_fd;
    fdset[0].events = POLLPRI;
 
-   rc = poll(fdset, nfds, timeout); //bloquant, fin du poll() a timeout     
-      
+   rc = poll(fdset, nfds, timeout); //bloquant, fin du poll() a timeout
+
    if (rc < 0) {//poll() failed
-//      fprintf(stderr,"poll() failed\n");
+      fprintf(stderr,"poll() failed for gpio %d\n", gpio);
       gpio_fd_close(gpio_fd);
       return -1;
    }
 
-   if (rc == 0) {//out of time      
+   if (rc == 0) {//out of time
       if (read(gpio_fd, &buf,2) != 2) {
          perror("read");
          return -1;
@@ -91,18 +95,18 @@ int ed_poll(easydriver_t* ed){//damien
          return 1;
 	  }
    }
-   
+
    if (fdset[0].revents & POLLPRI){// finDeCourse
       gpio_fd_close(gpio_fd);
-      return 1;	   
+      return 1;
    }
-   
+
    else{
 //	   fprintf(stderr,"poll() filed\n");
       gpio_fd_close(gpio_fd);
       return -1;
    }
-	
+
 }//ed_poll
 
 
@@ -142,7 +146,7 @@ int ed_step(easydriver_t* ed, int numberOfSteps)
    int sensMot = 0;
    int finDeCourse = 0;
 
-   
+
    sensMot = numberOfSteps;
 
    if(numberOfSteps<=0) {
@@ -150,9 +154,9 @@ int ed_step(easydriver_t* ed, int numberOfSteps)
    }
 
    for(i=0; i<numberOfSteps; i++){
-	   
+
       finDeCourse = ed_poll(ed);//butee = 1
-      
+
       if(sensMot>=0 && finDeCourse == 0) {//keep motor direction
       gpio_set_value(&ed->gpio_DIR, CLOCKWISE);
       }
