@@ -33,11 +33,11 @@ char motor_pins[NB_MOTORS][3] = {
 #define MAX_RANGE_JOY_AXIS 32767
 // android
 #define MIN_RANGE_AND_PITCH 0
-#define MAX_RANGE_AND_PITCH 180
+#define MAX_RANGE_AND_PITCH 2000
 #define MIN_RANGE_AND_ROLL 0
-#define MAX_RANGE_AND_ROLL 90
+#define MAX_RANGE_AND_ROLL 2000
 #define MIN_RANGE_AND_AZIM 0
-#define MAX_RANGE_AND_AZIM 0
+#define MAX_RANGE_AND_AZIM 2000
 
 /**
  * Motor structure
