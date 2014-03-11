@@ -267,13 +267,13 @@ int main (int argc,char **argv)
       }
       else {
          //            printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
-         printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
+//          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
          // get following part of the message
          rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
          if (rc) {
             msg = (message_t*) szbuf;
-            hex_dump_message( msg);
-            dump_message( (message_t*) szbuf);
+//             hex_dump_message( msg);
+//             dump_message( (message_t*) szbuf);
 
             // message treatment
             switch (msg->type) {

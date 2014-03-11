@@ -42,7 +42,7 @@
  ****************************************************************/
 
 #define SYSFS_GPIO_DIR "/sys/class/gpio"
-#define POLL_TIMEOUT (3 * 1000) /* 3 seconds */
+#define POLL_TIMEOUT (1) /* 1 ms */
 #define MAX_BUF 64
 #define SYSFS_OMAP_MUX_DIR "/sys/kernel/debug/omap_mux/"
 

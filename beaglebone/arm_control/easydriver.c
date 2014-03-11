@@ -34,8 +34,8 @@ int ed_init (easydriver_t* ed, char gpio_STEP, char gpio_DIR, char gpio_MS2, cha
    gpio_set_dir ( &ed->gpio_DIR, OUTPUT_PIN);
    gpio_set_dir ( &ed->gpio_STEP,  OUTPUT_PIN);
    gpio_set_dir ( &ed->gpio_MS2,  OUTPUT_PIN);
-   gpio_set_dir ( &ed->gpio_POS,  INPUT_PIN);//read input pin
 
+   gpio_set_dir ( &ed->gpio_POS,  INPUT_PIN);//read input pin
    gpio_set_edge(&ed->gpio_POS, "rising");//damien
 
    gpio_set_value ( &ed->gpio_DIR, ed->direction);
@@ -55,55 +55,47 @@ int ed_init (easydriver_t* ed, char gpio_STEP, char gpio_DIR, char gpio_MS2, cha
 int ed_poll(easydriver_t* ed){//damien
 
    struct pollfd fdset[1];
-   int nfds = 1;
    int gpio_fd, timeout, rc;
    unsigned int gpio;
-   char *buf[2];
+   unsigned int value = 0;
+   char buf[2];
    int etat_gpio;
 
-   gpio = atoi(&ed->gpio_POS.num);
-   gpio_fd = gpio_fd_open(gpio);
+   gpio = ed->gpio_POS.num;
+   gpio_fd = ed->gpio_POS.fd_value;
+   // gpio_fd_open(gpio);
 //  gpio_fd = gpio_fd_open_g(&ed->gpio_MS2);
 
    timeout = POLL_TIMEOUT;//check time_out value
 
    memset((void*)fdset, 0, sizeof(fdset));
-
    fdset[0].fd = gpio_fd;
    fdset[0].events = POLLPRI;
 
-   rc = poll(fdset, nfds, timeout); //bloquant, fin du poll() a timeout
+   // poll on 1 fd only
+   rc = poll(fdset, 1, timeout); //bloquant, fin du poll() a timeout
 
    if (rc < 0) {//poll() failed
       fprintf(stderr,"poll() failed for gpio %d\n", gpio);
-      gpio_fd_close(gpio_fd);
+//       gpio_fd_close(gpio_fd);
       return -1;
    }
 
-   if (rc == 0) {//out of time
-      if (read(gpio_fd, &buf,2) != 2) {
-         perror("read");
-         return -1;
-      }
-      etat_gpio = atoi(buf[0]);
-      gpio_fd_close(gpio_fd);
-      // verifier la valeur sortie du capteur
-      if (etat_gpio == 0){//etat bas, moteur dans la plage
-         return 0;
-	  }
-      else {//etat haut, moteur en fin de course
-         return 1;
-	  }
+   if (rc == 0) {
+      //out of time
+      return 0;
    }
 
-   if (fdset[0].revents & POLLPRI){// finDeCourse
-      gpio_fd_close(gpio_fd);
-      return 1;
+   if (fdset[0].revents & POLLPRI){
+      // finDeCourse
+//       gpio_fd_close(gpio_fd);
+      gpio_get_value ( &(ed->gpio_POS), &value);
+      printf ("detection interrupt occured for gpio %d val:%d\n", gpio, value);
+      return value;
    }
-
-   else{
+   else {
 //	   fprintf(stderr,"poll() filed\n");
-      gpio_fd_close(gpio_fd);
+//       gpio_fd_close(gpio_fd);
       return -1;
    }
 
@@ -146,6 +138,7 @@ int ed_step(easydriver_t* ed, int numberOfSteps)
    int sensMot = 0;
    int finDeCourse = 0;
 
+//    printf("edstep,steps:%d\n",numberOfSteps);
 
    sensMot = numberOfSteps;
 
@@ -161,15 +154,18 @@ int ed_step(easydriver_t* ed, int numberOfSteps)
       gpio_set_value(&ed->gpio_DIR, CLOCKWISE);
       }
       else if(sensMot>=0 && finDeCourse == 1) {//change motor direction
+// printf("endcourse\n");
          gpio_set_value(&ed->gpio_DIR, ANTICLOCKWISE);
       }
       else if (sensMot<=0 && finDeCourse == 0) {//keep motor direction
          gpio_set_value(&ed->gpio_DIR, ANTICLOCKWISE);
       }
       else   {//change motor direction
+// printf("endcourse\n");
          gpio_set_value(&ed->gpio_DIR, CLOCKWISE);
       }
 
+//       printf("."); fflush(stdout);
       gpio_set_value(&ed->gpio_STEP, LOW);
       usleep(1000);
       gpio_set_value(&ed->gpio_STEP, HIGH);
@@ -201,5 +197,7 @@ int ed_close (easydriver_t* ed)
 {
    gpio_unexport (&ed->gpio_DIR);
    gpio_unexport (&ed->gpio_STEP);
+   gpio_unexport (&ed->gpio_MS2);
+   gpio_unexport (&ed->gpio_POS);
    return 0;
 } // ed_close
