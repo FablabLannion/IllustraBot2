@@ -12,4 +12,5 @@ List of directories :
 * android : well, android application
 * beaglebone : soft running on the arm control platform
 
+test
 
