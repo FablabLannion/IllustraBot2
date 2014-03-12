@@ -37,11 +37,6 @@
 
 motor_t motors[NB_MOTORS];      /**< array with all controled motors */
 
-void test_git (){
-	   printf ("hello\n");	
-}
-
-	
 
 /** Display a received message from the client
  *
@@ -147,7 +142,7 @@ int init_motors(void)
 
    for (i=0; i< NB_MOTORS; i++) {
       sprintf (motors[i].name, "motor %" PRIdPTR, i+1);
-      rc = ed_init (&motors[i].ed, motor_pins[i][IDX_STEP], motor_pins[i][IDX_DIR], motor_pins[i][IDX_MS2], STEPS_PR, 10);
+      rc = ed_init (&motors[i].ed, motor_pins[i][IDX_STEP], motor_pins[i][IDX_DIR], motor_pins[i][IDX_MS2], motor_pins[i][IDX_POS], STEPS_PR, 10);
       motors[i].ed.speed = MIN_SPEED;
 
       pthread_mutex_init ( &motors[i].mutex, NULL );
@@ -181,7 +176,7 @@ void close_motors (void)
  */
 int command_motor (uint8_t nMot, int speed, int steps) {
 
-   unsigned int var = 0;
+//   unsigned int var = 0;
    int rc = 0;
 
 //    gpio_get_value(&captors[nMot], &var);//var=1 if HIGH Level, var=0 if LOW Level
@@ -272,13 +267,13 @@ int main (int argc,char **argv)
       }
       else {
          //            printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
-         printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
+//          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
          // get following part of the message
          rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
          if (rc) {
             msg = (message_t*) szbuf;
-            hex_dump_message( msg);
-            dump_message( (message_t*) szbuf);
+//             hex_dump_message( msg);
+//             dump_message( (message_t*) szbuf);
 
             // message treatment
             switch (msg->type) {

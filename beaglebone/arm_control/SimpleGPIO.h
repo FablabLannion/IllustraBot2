@@ -42,7 +42,7 @@
  ****************************************************************/
 
 #define SYSFS_GPIO_DIR "/sys/class/gpio"
-#define POLL_TIMEOUT (3 * 1000) /* 3 seconds */
+#define POLL_TIMEOUT (1) /* 1 ms */
 #define MAX_BUF 64
 #define SYSFS_OMAP_MUX_DIR "/sys/kernel/debug/omap_mux/"
 
@@ -60,6 +60,7 @@ typedef struct {
    char num;            /**< gpio number */
    int fd_value;        /**< file desciptor of /sys/class/gpio/gpio<num>/value */
    int fd_direction;    /**< file desciptor of /sys/class/gpio/gpio<num>/direction */
+   int fd_edge;         /**< file desciptor of /sys/class/gpio/gpio<num>/edge *///damien
 } gpio_t;
 
 /****************************************************************
@@ -71,8 +72,10 @@ int gpio_set_dir(gpio_t* gpio, PIN_DIRECTION out_flag);
 int gpio_set_value(gpio_t* gpio, PIN_VALUE value);
 int gpio_get_value(gpio_t* gpio, unsigned int *value);
 
-int gpio_set_edge(unsigned int gpio, char *edge);
+//int gpio_set_edge(unsigned int gpio, char *edge);
+int gpio_set_edge(gpio_t* gpio, char *edge);//damien
 int gpio_fd_open(unsigned int gpio);
+int gpio_fd_open_g(gpio_t* gpio);//damien
 int gpio_fd_close(int fd);
 int gpio_omap_mux_setup(const char *omap_pin0_name, const char *mode);
 

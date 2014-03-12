@@ -19,7 +19,7 @@ then # not applied
    [ -r "/lib/firmware/arm_control-1-00A0.dtbo" ] || exit 2
    echo arm_control-1 > $SLOTS
    echo "GPIO used :"
-   egrep "830|834|824|828" $PINMUX
+   egrep "pinmux_motor" $PINMUX
 else
    echo "overlay already applied ..."
 fi

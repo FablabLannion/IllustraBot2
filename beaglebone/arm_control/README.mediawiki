@@ -25,8 +25,9 @@ to start (as root) :
 will apply the DTO and start the server listening on ''1337'' port
 
 == TODO ==
-* créer le DTO pour les 6 moteurs (voir pinout)
+* <strike>créer le DTO pour les 6 moteurs (voir pinout)</strike> : [https://github.com/fablab-lannion/IllustraBot2/commit/f71f4f4cf2dc9863a57f87884b03c1b32b1ea946#diff-9c5eee7158380af3b2b3252f9d04fc79 done]
 * factoriser un peu le code pour le traitement des messages : en cours
 * ajouter le traitement des messages android : en cours
 * <strike>ajouter la gestion de MS2 pour gérer les ''full steps'' et ''1/4''</strike> : [https://github.com/fablab-lannion/IllustraBot2/commit/3c8cd0586eaed3935ca26a3458da0bf1167879fc done]
-* ajouter le traitement des fins de course
+* <strike>ajouter le traitement des fins de course</strike> : [https://github.com/fablab-lannion/IllustraBot2/commit/de36a578ee9151788712bda91cd567e2ee7e87b1#diff-9c5eee7158380af3b2b3252f9d04fc79 done]
+

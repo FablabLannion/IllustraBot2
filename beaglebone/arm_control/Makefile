@@ -26,5 +26,6 @@ clean:
 	rm -f $(OBJS) $(PROGNAME)
 
 # compile device tree overlay
+# please don't forget to do : cp arm_control-1-00A0.dtbo /lib/firmware/
 dtbo: arm_control-1.dts
 	dtc -O dtb -o arm_control-1-00A0.dtbo -b 0 -@ arm_control-1.dts

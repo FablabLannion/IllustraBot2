@@ -42,6 +42,13 @@
                                  0x184 0x07  /* P9_24 15 OUTPUT  MODE7 */
                                  0x150 0x07  /* P9_22  2 OUTPUT  MODE7 */
                                  0x180 0x07  /* P9_26 14 OUTPUT  MODE7 */
+                                 0x074 0x27  /* P9_13 31 INTPUT  MODE7 */
+                                 0x040 0x27  /* P9_15 48 INTPUT  MODE7 */
+                                 0x15C 0x27  /* P9_17  5 INTPUT  MODE7 */
+                                 0x154 0x27  /* P9_21  3 INTPUT  MODE7 */
+                                 0x044 0x27  /* P9_23 49 INTPUT  MODE7 */
+                                 /*0x1AC 0x27  /* P9_25 117 INTPUT  MODE7 */
+
 
                                  /* OUTPUT  GPIO(mode7) 0x07 pulldown, 0x17 pullup, 0x?f no pullup/down */
                                  /* INPUT   GPIO(mode7) 0x27 pulldown, 0x37 pullup, 0x?f no pullup/down */
