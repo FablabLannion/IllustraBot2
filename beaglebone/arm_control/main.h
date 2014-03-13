@@ -53,5 +53,6 @@ typedef struct {
    pthread_cond_t  cond;        /**< blocking condition of the thread */
 } motor_t;
 
+#define BUFSIZE sizeof(message_t)
 
 #endif /* __MAIN_H__ */

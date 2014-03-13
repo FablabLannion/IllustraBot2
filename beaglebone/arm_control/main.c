@@ -213,7 +213,7 @@ int main (int argc,char **argv)
    char
    szclient_host[64],
    szclient_ip[64],
-   szbuf[BUFSIZ];
+   szbuf[BUFSIZE];
 
    message_t* msg;
 
@@ -259,42 +259,46 @@ int main (int argc,char **argv)
    while (connected)
    {
       // get message header
-      rc = sockRead (sock_fd, szbuf, HEADER_SIZE);
+//      rc = sockRead (sock_fd, szbuf, HEADER_SIZE);
+      memset(szbuf, 0, BUFSIZE);
+      rc = read (sock_fd, szbuf, BUFSIZE);
+      printf("%d octets lus\n", rc);
       if (rc < 0) {
          printf("read failed :(\n");
          // read failed
          break;
       }
       else {
-         printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
-          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
+//         printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
+//          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
          // get following part of the message
-         rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
+//         rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
          if (rc) {
             msg = (message_t*) szbuf;
              hex_dump_message( msg);
-             dump_message( (message_t*) szbuf);
 
             // message treatment
             switch (msg->type) {
                case T_DATA_JOY:
+                  dump_message( (message_t*) szbuf);
                   //             dump_message( (message_t*) szbuf);
                   if (msg->pl.joystick.b1 == 0) {
-                     // moteur 1 : epaule
+                     // moteur 1 : base
                      if (msg->pl.joystick.x1 != 0) {
                         v = msg->pl.joystick.x1;
                         command_motor ( 0, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
-                     // motor 2 : axe vertical
+                     // motor 2 : epaule
                      if (msg->pl.joystick.y1 != 0) {
                         v = msg->pl.joystick.y1;
                         command_motor ( 1, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
-                     // moteur 3 :
+                     // moteur 4 : coude
                      if (msg->pl.joystick.x2 != 0) {
                         v = msg->pl.joystick.x2;
                         command_motor ( 3, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
+                     // moteur 3: poignet
                      if (msg->pl.joystick.y2 != 0) {
                         v = msg->pl.joystick.y2;
                         command_motor ( 2, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), -16*(v/abs(v)) );
@@ -312,23 +316,29 @@ int main (int argc,char **argv)
                   }
                   break; // case T_DATA_JOY:
                case T_DATA_AND:
+                  
+                  msg->pl.android.pitch   = ntohl(msg->pl.android.pitch);
+                  msg->pl.android.roll    = ntohl(msg->pl.android.roll);
+                  msg->pl.android.azimuth = ntohl(msg->pl.android.azimuth);                  
                   // azimuth, pitch and roll are *2
                   msg->pl.android.pitch   -= MAX_RANGE_AND_PITCH/2;
                   msg->pl.android.roll    -= MAX_RANGE_AND_ROLL/2;
                   msg->pl.android.azimuth -= MAX_RANGE_AND_AZIM/2;
+                  
+                  dump_message( (message_t*) szbuf);
 
                   if (msg->pl.android.b1 == 0) {
                      if (msg->pl.android.pitch != 0) {
                         v = msg->pl.android.pitch;
-                        command_motor ( 0, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                        command_motor ( 1, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
                      if (msg->pl.android.roll != 0) {
                         v = msg->pl.android.roll;
-                        command_motor ( 1, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                        command_motor ( 2, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
                      if (msg->pl.android.azimuth != 0) {
                         v = msg->pl.android.azimuth;
-                        command_motor ( 2, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                        command_motor ( 0, map (v, MIN_RANGE_AND_PITCH, MAX_RANGE_AND_PITCH, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
                   }
                   else { //msg->pl.android.b1 != 0
