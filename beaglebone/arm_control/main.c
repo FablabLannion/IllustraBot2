@@ -266,14 +266,14 @@ int main (int argc,char **argv)
          break;
       }
       else {
-         //            printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
-//          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
+         printf("ver:%d, size:%d, type:%d\n", szbuf[0], szbuf[1], szbuf[2]);
+          printf ("read %d (exp:%d), still %d bytes to read\n",rc, (int)HEADER_SIZE, (int)(szbuf[1]-HEADER_SIZE));
          // get following part of the message
          rc = sockRead (sock_fd, szbuf+HEADER_SIZE, szbuf[1] - HEADER_SIZE);
          if (rc) {
             msg = (message_t*) szbuf;
-//             hex_dump_message( msg);
-//             dump_message( (message_t*) szbuf);
+             hex_dump_message( msg);
+             dump_message( (message_t*) szbuf);
 
             // message treatment
             switch (msg->type) {
@@ -293,11 +293,11 @@ int main (int argc,char **argv)
                      // moteur 3 :
                      if (msg->pl.joystick.x2 != 0) {
                         v = msg->pl.joystick.x2;
-                        command_motor ( 2, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                        command_motor ( 3, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
                      }
                      if (msg->pl.joystick.y2 != 0) {
                         v = msg->pl.joystick.y2;
-                        command_motor ( 3, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), 16*(v/abs(v)) );
+                        command_motor ( 2, map (v, MIN_RANGE_JOY_AXIS, MAX_RANGE_JOY_AXIS, MIN_SPEED, MAX_SPEED), -16*(v/abs(v)) );
                      }
                   }
                   else { // msg->pl.joystick.b1 != 0
