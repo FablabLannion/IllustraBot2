@@ -47,7 +47,7 @@
                                  0x15C 0x27  /* P9_17  5 INTPUT  MODE7 */
                                  0x154 0x27  /* P9_21  3 INTPUT  MODE7 */
                                  0x044 0x27  /* P9_23 49 INTPUT  MODE7 */
-                                 /*0x1AC 0x27  /* P9_25 117 INTPUT  MODE7 */
+                                 0x1A4 0x27  /* P9_27 115 INTPUT  MODE7 */
 
 
                                  /* OUTPUT  GPIO(mode7) 0x07 pulldown, 0x17 pullup, 0x?f no pullup/down */
