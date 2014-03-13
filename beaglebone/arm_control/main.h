@@ -15,7 +15,7 @@ char motor_pins[NB_MOTORS][4] = {
    {47, 27, 23,  5}, /* motor2; P8_15, P8_17, P8_13, P9_17 */
    {69, 45, 66,  3}, /* motor3; P8_9,  P8_11, P8_7 , P9_21 */
    {51, 50,  4, 49}, /* motor4; P9_16, P9_14, P9_18, P9_23 */
-   {15,  2, 14, 117}, /* motor5; P9_24, P9_22, P9_26, P9_25 */
+   {15,  2, 14, 115}, /* motor5; P9_24, P9_22, P9_26, P9_27 */
 };
 #define IDX_STEP 0
 #define IDX_DIR  1
@@ -53,5 +53,6 @@ typedef struct {
    pthread_cond_t  cond;        /**< blocking condition of the thread */
 } motor_t;
 
+#define BUFSIZE sizeof(message_t)
 
 #endif /* __MAIN_H__ */
