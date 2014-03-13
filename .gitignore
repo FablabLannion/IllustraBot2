@@ -3,3 +3,6 @@
 ## Backups
 *~
 *.bak
+bin
+/android/illustrabot2/.classpath
+/android/illustrabot2/bin/classes

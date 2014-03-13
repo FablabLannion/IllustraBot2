@@ -15,17 +15,26 @@
 	var serverIP = "192.168.128.46";
 	var serverPort = "22300";
 	*/
-	var serverIP = "192.168.1.82";
-	var serverPort = "9099";	
+	
+	//var serverIP = "192.168.1.82";
+	//var serverIP = "192.168.1.224";
+	var serverIP = "192.168.1.225";
+	var serverPort = "9099";
+		
 	
 	var connectStatus = "false";
 	var traffic= "false";
 
 	
-	//TODO : set period in a preference menu
+    //default periodi value to poll sensors
 	var sensorPeriod = "1000";	
 	var start_time=0;
 	var end_time=0;
+	
+	//select which motor will be controlled
+	var motorHeader="00000000"
+	
+	
 
 
 
@@ -77,10 +86,71 @@
 		connectStatus="true";
 	}
 	
+	
+
+	
+	//********************************************
+	function updateTCPParameters(e){
+	//********************************************
+		//Close connection if any
+		TcpClient.close();
+		//Refresh tcp parameters		
+		serverIP=document.getElementById("IPbox").value;
+		serverPort=document.getElementById("PORTbox").value;
+		
+		//connect back
+		console.log("connect to TCP Server with new parameters...");
+		TcpClient.connect(serverIP,serverPort);
+		//Toast.shortshow("Plugin called successfully :-)");
+		connectStatus="true";
+	}	
+	
+
+	
+	
+	
 
 ///////////////////////////////////////////////////
 // Sensor Managment
 ///////////////////////////////////////////////////	
+
+	
+	//********************************************
+	function setMotorHeader(val){
+	//********************************************
+			switch(val)
+			{
+			case 0:
+			  motorHeader="00000000"
+			  break;			
+			case 1:
+			  motorHeader="01000000"
+			  break;
+			case 2:
+			  motorHeader="00010000"
+			  break;
+			case 3:
+			  motorHeader="00000100"
+			  break;			  
+			default:
+			   //motor 4 selected by default
+			   motorHeader="00000001"
+			   
+			}	
+	
+
+		console.log("New motor selected:"+motorHeader);
+
+	}		
+	//********************************************
+	function updatePeriod(e){
+	//********************************************
+
+		//Refresh sample periodi used for sensor polling		
+		sensorPeriod=document.getElementById("SamplePeriod").value;
+		console.log("New period:"+sensorPeriod);
+
+	}	
 
 	//********************************************	
 	function startTraffic(e) {
@@ -150,8 +220,9 @@
 			  hexaBeta=decimalToHexString(beta);
 			  hexaGamma=decimalToHexString(gamma);
 			  
-			  header="0113030001020304"
-			  frametoSend=header+hexaAlpha+hexaBeta+hexaGamma;
+			  header="01170300"			  
+			  footer="00000000"
+			  frametoSend=header+motorHeader+hexaAlpha+hexaBeta+hexaGamma+footer;
 			  
 			  document.getElementById("log").innerHTML = "<ul><li>Alpha : " + alpha + "<->0x"+ hexaAlpha + "</li><li>Beta : " + 
 			  beta + "<->0x"+ hexaBeta +  "</li><li>Gamma : " + gamma + "<->0x"+ hexaGamma + "</li><li>Frame : "+ frametoSend + "</li></ul>" ; 		

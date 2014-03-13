@@ -15,6 +15,8 @@ public class TcpClientPlugin extends CordovaPlugin {
 
     // actions
     private static final String CONNECT = "connect";
+    private static final String CLOSE = "close";
+    
     private static final String IS_CONNECTED  = "isConnected";
 	private static final String WRITE = "write";
 	
@@ -65,7 +67,9 @@ public class TcpClientPlugin extends CordovaPlugin {
             byte[] binaryFrame=hexStringToByteArray(data);
 			mTcpClient.sendFrame(binaryFrame);
             callbackContext.success();
-
+		}  else if (action.equals(CLOSE)) {
+			mTcpClient.stopClient();
+			
         } else {
             validAction = false;		
 		}		

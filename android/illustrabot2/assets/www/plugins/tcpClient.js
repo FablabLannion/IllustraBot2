@@ -8,6 +8,11 @@ cordova.define('cordova/plugin/tcpClient', function (require, exports, module) {
 	    exec(successCallback, failureCallback, 'TcpClientPlugin', 'connect', [serverIP,serverPort]);
 	}
 	
+	TcpClient.prototype.close = function(serverIP,serverPort,successCallback,failureCallback) {
+	    exec(successCallback, failureCallback, 'TcpClientPlugin', 'close', []);
+	}
+	
+	
 	// writes data to the bluetooth serial port - data must be a string
 	TcpClient.prototype.write = function(data,successCallback,failureCallback) {
 	    exec(successCallback, failureCallback, 'TcpClientPlugin', 'write', [data]);
