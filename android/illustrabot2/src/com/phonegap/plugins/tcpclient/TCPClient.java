@@ -33,7 +33,12 @@ public class TCPClient {
     
     
     private OnMessageReceived mMessageListener = null;
-    private boolean mRun = false;
+    public boolean mRun = false;
+    
+    private boolean mConnectionStatus = false;
+    
+    
+  
  
     PrintWriter out;
     BufferedReader in;
@@ -61,21 +66,34 @@ public class TCPClient {
     }
 	
     public void sendFrame(byte[] frame){
-        if (out2 != null ) {
-            try {
-				out2.write(frame);
-				out2.flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            
-            
-        }
+    	if (!mRun)
+    	{
+    		//TCP socket not openned, try to connect
+    		run();
+    	}
+    	
+    	else
+    	{
+	        if (out2 != null ) {
+	            try {
+					out2.write(frame);
+					out2.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					LOG.d(TAG, "!!!TCP Connection Lost!!!");
+					stopClient();
+					
+				}
+	            
+	            
+	        }
+    	}
     }	
  
-    public void stopClient(){
+    public void stopClient(){    	
         mRun = false;
+        LOG.d(TAG, "Close TCP Connection");
     }
  
     public void run_() {

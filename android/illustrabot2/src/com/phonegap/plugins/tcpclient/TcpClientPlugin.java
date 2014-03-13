@@ -55,7 +55,7 @@ public class TcpClientPlugin extends CordovaPlugin {
 		
         }  else if (action.equals(IS_CONNECTED)) {
 
-            boolean connected = false;
+            boolean connected = mTcpClient.mRun;
 			LOG.d(TAG, "connection status: TBC");
             PluginResult result = new PluginResult(PluginResult.Status.OK, connected);
             callbackContext.sendPluginResult(result);
