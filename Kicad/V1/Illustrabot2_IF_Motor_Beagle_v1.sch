@@ -37,7 +37,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Carte Interface Beaglebone / Bras robotisé"
-Date "11 feb 2014"
+Date "15 mar 2014"
 Rev "1.0"
 Comp "Fablab Lannion"
 Comment1 ""
@@ -716,7 +716,6 @@ NoConn ~ 13650 1400
 NoConn ~ 13750 1400
 NoConn ~ 13850 1400
 NoConn ~ 13950 1400
-NoConn ~ 14050 1400
 NoConn ~ 14450 1400
 NoConn ~ 14850 1400
 NoConn ~ 14950 1400
@@ -1609,7 +1608,7 @@ Entry Wire Line
 Entry Wire Line
 	14150 600  14250 700 
 Entry Wire Line
-	14050 600  14150 700 
+	13950 600  14050 700 
 Text Label 14750 1350 1    60   ~ 0
 Position_m1
 Text Label 14650 1350 1    60   ~ 0
@@ -1620,7 +1619,7 @@ Text Label 14350 1350 1    60   ~ 0
 Position_m4
 Text Label 14250 1350 1    60   ~ 0
 Position_m5
-Text Label 14150 1350 1    60   ~ 0
+Text Label 14050 1350 1    60   ~ 0
 Position_m6
 Entry Wire Line
 	14750 3000 14850 3100
@@ -2213,8 +2212,6 @@ Wire Wire Line
 Wire Wire Line
 	14250 1400 14250 700 
 Wire Wire Line
-	14150 1400 14150 700 
-Wire Wire Line
 	14750 2200 14750 3000
 Wire Wire Line
 	14650 2200 14650 3000
@@ -2785,4 +2782,7 @@ Connection ~ 1300 1000
 Wire Wire Line
 	1750 1000 1800 1000
 Connection ~ 1800 1000
+Wire Wire Line
+	14050 1400 14050 700 
+NoConn ~ 14150 1400
 $EndSCHEMATC
