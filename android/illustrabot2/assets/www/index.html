@@ -14,6 +14,8 @@
     
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+	<link href="css/onoff.css" rel="stylesheet">
+	<link href="css/slider.css" rel="stylesheet">	
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -103,12 +105,28 @@
 	<button type="button" onmouseover="setMotorHeader(4);" class="btn btn-success btn-block">motor4</button>
       </div> 
       <div class="col-md-4 column">
-	<button type="button" onmouseover="setMotorHeader(0);" class="btn btn-success btn-block">halt</button>
+	<button type="button" onmouseover="setMotorHeader(0);" class="btn btn-success btn-block">haltpp</button>
       </div> 	  
         <div class="col-md-4 column">
         &nbsp;
       </div>    
     </div>	
+	
+	<div class="onoffswitch">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+    <label class="onoffswitch-label" for="myonoffswitch">
+        <span class="onoffswitch-inner">
+            <span class="onoffswitch-active"><span class="onoffswitch-switch">ON</span></span>
+            <span class="onoffswitch-inactive"><span class="onoffswitch-switch">OFF</span></span>
+        </span>
+    </label>
+	</div>
+	
+	<div id="slider">
+	<input class="bar" type="range" id="rangeinput" value="50" onchange="rangevalue.value=value"/>
+	<span class="highlight"></span>
+	<output id="rangevalue">50</output>
+	</div>
 	
 
     
