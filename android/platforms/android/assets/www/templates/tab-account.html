@@ -1,0 +1,39 @@
+<ion-view title="Account">
+  <ion-content class="padding">
+    <div class="row clearfix">
+	
+		<ul>
+			<li>{{IpParameters()}}</li>
+		</ul>
+
+	
+		<div class="col-md-6 column">
+
+          <input type="text" id="IPbox"  value="192.168.1.79">
+          <input type="text" id="PORTbox"  value="48569">		  
+          <input type="submit" value="IP Update" onClick="updateTCPParameters();">
+		  
+		</div>	
+		
+		
+		<div class="col-md-6 column">
+
+          <input type="text" id="SamplePeriod" value="1000">  
+          <input type="submit" value="Update" onClick="updatePeriod();">				
+		</div>			
+
+		<div class="col-md-6 column">
+
+          <input type="submit" value="LoadPreferences" onClick="loadPreferences();">	
+          <input type="submit" value="SavePreferences" onClick="savePreferences();">		  
+		</div>			
+
+
+      <div class="col-md-4 column">
+        &nbsp;
+      </div>
+
+    </div>
+
+  </ion-content>
+</ion-view>

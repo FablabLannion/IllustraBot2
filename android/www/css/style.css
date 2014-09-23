@@ -1,0 +1,21 @@
+/* Empty. Add your own CSS if you like */
+.customPreferenceItem{
+margin: 0;
+height: 20px;
+line-height: 20px;
+box-sizing: content-box;
+font-size: 4px;
+color:#00FFFF;
+font-family: 'Roboto-Light';
+opacity: 1;
+
+}
+
+
+.customIconRed {
+  color : red;
+}
+
+.customIconGreen {
+  color : green;
+}

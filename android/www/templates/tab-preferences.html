@@ -1,0 +1,45 @@
+<ion-view title="Preferences">
+	<ion-content>
+
+		<div class="list">
+
+			<form name="preferencesForm" ng-submit="savePreferences()" novalidate>
+
+				<label class="item item-input customPreferenceItem">
+					<input type="text"
+					       ng-model="data.address"
+					       placeholder="IP address">
+				</label>
+				
+				<label class="item item-input customPreferenceItem">
+					<input type="text"
+					       ng-model="data.port"
+					       placeholder="IP port">
+				</label>
+
+				<label class="item item-input customPreferenceItem">
+					<input type="text"
+					       ng-model="data.timer"
+					       placeholder="Frame Period in ms">
+				</label>
+
+				<button class="button button-block button-positive"
+				        ng-disabled="preferencesForm.$invalid">
+					Save
+				</button>
+				
+				
+			</form>
+			
+				<button class="button button-block button-positive"
+				        ng-click="loadPreferences()">
+					Load
+				</button>			
+		</div>
+		
+
+
+
+
+	</ion-content>
+</ion-view>

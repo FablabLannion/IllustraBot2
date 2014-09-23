@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:6
+-keep class com.kernel.illustrabot2.Illustrabot2 { <init>(...); }
+
