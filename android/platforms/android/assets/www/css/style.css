@@ -1,7 +1,7 @@
 /* Empty. Add your own CSS if you like */
 .customPreferenceItem{
 margin: 0;
-height: 20px;
+height: 30px;
 line-height: 20px;
 box-sizing: content-box;
 font-size: 4px;
@@ -19,3 +19,9 @@ opacity: 1;
 .customIconGreen {
   color : green;
 }
+
+
+.customButton {
+	position: relative;
+	top: -40px;
+}	

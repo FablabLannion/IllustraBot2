@@ -39,8 +39,11 @@
 	
 	//select which motor will be controlled
 	var motorHeader="00000000"
-	var motorFooter="000000"
+	var armselected="00"
+	var motorFooter="0000"
+	var mecaLength="00";
 	var frametoSend="";
+	
 	
 
 	
@@ -251,6 +254,24 @@
 		} 
 		
 
+
+	//********************************************
+	function setHand(val){
+	//********************************************
+	console.log("Hand selected");
+	armselected="00";
+	motorHeader=mecaLength+armselected+motorFooter;	
+	}
+	
+	
+	//********************************************
+	function setArm(val){
+	//********************************************
+	console.log("Arm selected");
+	armselected="01";
+	motorHeader=mecaLength+armselected+motorFooter;
+	}
+		
 	
 	//********************************************
 	function setMotorHeader(val){
@@ -290,7 +311,8 @@
 		hexavalue=intValue.toString(16);
 		hexavalue=hexavalue.toLowerCase();
 		console.log(intValue+"<->0x"+hexavalue);
-		motorHeader=hexavalue+motorFooter;
+		mecaLength=hexavalue;
+		motorHeader=mecaLength+armselected+motorFooter;
 
 
 	}	

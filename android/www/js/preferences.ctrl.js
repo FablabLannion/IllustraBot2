@@ -111,7 +111,7 @@ angular.module('starter.preferences.ctrl', [])
 	
 	
 	//Load default values at page load for IP,port, and so on
-	loadDefaultValues();
+	//loadDefaultValues();
 	
 	
 	

@@ -1,30 +1,25 @@
-<ion-view title="Illustrabot2 - Fablab Lannion - 0.3">
+<ion-view title="Illustrabot2 - Fablab Lannion - 0.5">
   <ion-content class="padding">
 
 <div class="row">
-	<div class="col">
+	<div class="col col col-50">
 		<a id="connectionStatus" class="button button-icon icon ion-radio-waves"></a>
 	</div>
- 
+	
 	<div class="col">
-
-		<div class="onoffswitch">
-			<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-			<label class="onoffswitch-label" for="myonoffswitch">
-				<span class="onoffswitch-inner">
-					<span class="onoffswitch-active"><span class="onoffswitch-switch">Arm</span></span>
-					<span class="onoffswitch-inactive"><span class="onoffswitch-switch">Hand</span></span>
-				</span>
-			</label>
-		</div>
+		<a id="connectionStatus" ng-click="setArm()" class="button button-icon icon ion-steam"></a>
+		
+	</div>	
+	<div class="col">
+		
+		<a id="connectionStatus" ng-click="setHand()" class="button button-icon icon ion-android-hand"></a>		
+	</div>		
  
-	</div>
+
 </div>	
 
-<div class="row">
-</div>	
  
-<div class="row">	
+<div class="row responsive-sm">	
 	<div id="slider">
 	<input class="bar" type="range" id="rangeinput" value="50" onchange="updateMotorHeader(value)"/>
 	<span class="highlight"></span>
@@ -37,6 +32,8 @@
 				<span>&#xF267;</span>
 			</div>	
 </div>	
+
+
 	
   </ion-content>
 </ion-view>

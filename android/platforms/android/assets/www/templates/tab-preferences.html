@@ -1,40 +1,54 @@
 <ion-view title="Preferences">
 	<ion-content>
 
-		<div class="list">
 
-			<form name="preferencesForm" ng-submit="savePreferences()" novalidate>
-
-				<label class="item item-input customPreferenceItem">
-					<input type="text"
-					       ng-model="data.address"
-					       placeholder="IP address">
-				</label>
+		<div class="row">
+				<div class="col col-50">
+					<label for="ip_adress">IP address:</label>
+					<label class="item item-input customPreferenceItem">
+						<input type="text" id="ip_adress"
+							   ng-model="data.address"
+							   placeholder="IP address">
+					</label>
+				</div>
 				
-				<label class="item item-input customPreferenceItem">
-					<input type="text"
-					       ng-model="data.port"
-					       placeholder="IP port">
-				</label>
+				<div class="col col-50">
+					<label for="ip_port">IP Port:</label>				
+					<label class="item item-input customPreferenceItem">
+						<input type="text" id="ip_port"
+							   ng-model="data.port"
+							   placeholder="IP port">
+					</label>
+				</div>				
 
-				<label class="item item-input customPreferenceItem">
-					<input type="text"
-					       ng-model="data.timer"
-					       placeholder="Frame Period in ms">
-				</label>
 
-				<button class="button button-block button-positive"
-				        ng-disabled="preferencesForm.$invalid">
-					Save
-				</button>
+		</div>				
+		<div class="row">
+				<div class="col col-50">		
+					<label for="timer_value">Timer in ms</label>
+					<label class="item item-input customPreferenceItem ">				
+						<input type="text" id="timer_value"
+							   ng-model="data.timer"
+							   placeholder="Frame Period in ms">
+					</label>		
+				</div>	
+		</div>	
+
+
+		<div class="row">
+				<div class="col .col.col-75">			
+					<button class="button button-block button-positive button-small "
+							ng-click="savePreferences()">
+						Save
+					</button>					
+				</div>
 				
-				
-			</form>
-			
-				<button class="button button-block button-positive"
-				        ng-click="loadPreferences()">
-					Load
-				</button>			
+				<div class="col ">
+					<button class="button button-block button-positive button-small "
+							ng-click="loadPreferences()">
+						Load
+					</button>			
+				</div>
 		</div>
 		
 

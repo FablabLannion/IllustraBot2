@@ -13,8 +13,9 @@ use case:
 
 TODO:
 
+- slider not working fine on galaxy S2 , ok with galaxy S4
+- load/save not working fine on galaxy S2 , ok with galaxy S4
 - TCP isconnected not working fine
-- Frontend Arm/Hand button to be wired to TCP frame
 - Add fablab icon
 
     
