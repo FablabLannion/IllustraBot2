@@ -13,10 +13,9 @@ use case:
 
 TODO:
 
-- slider not working fine on galaxy S2 , ok with galaxy S4
-- load/save not working fine on galaxy S2 , ok with galaxy S4
+- slider width to be improved
 - TCP isconnected not working fine
-- Add fablab icon
+
 
     
 
@@ -38,3 +37,6 @@ AndroidManifest.xml updated to force landscape mode
 <application android:hardwareAccelerated="true" android:icon="@drawable/icon" android:label="@string/app_name" android:screenOrientation="landscape">
 
 
+ionic.css:
+bar.balanced modified to use KerNel colors
+.bar-balanced .buttons .customIconRed /Green added

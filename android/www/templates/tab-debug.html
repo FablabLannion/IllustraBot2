@@ -4,7 +4,6 @@
   <div class="container">
   
 	<ul>
-		<a id="connectionStatus" class="button button-icon icon ion-radio-waves"></a>
 		<li>{{IpParameters()}}</li>
 		<div id="log0"></div>		
 	</ul>
@@ -25,13 +24,19 @@
         &nbsp;
       </div>     
 		
+
+    </div>
+	
+    <div class="row clearfix">	
+	
       <div class="col-md-4 column">
 	<button type="button" onclick="sendTCPPattern();" class="btn btn-success btn-block">Send Pattern</button>
       </div> 
         <div class="col-md-4 column">
         &nbsp;
-      </div>    
-    </div>
+      </div>    	
+    </div>	
+	
 	
 	<div id="log"></div>
 	<div id="log2"></div>
@@ -51,13 +56,19 @@
       <div class="col-md-4 column">
 	<button type="button" onclick="setMotorHeader(4);" class="btn btn-success btn-block">motor4</button>
       </div> 
+   
+    </div>	
+	
+    <div class="row clearfix">	
+	
       <div class="col-md-4 column">
 	<button type="button" onclick="setMotorHeader(0);" class="btn btn-success btn-block">haltpp</button>
       </div> 	  
         <div class="col-md-4 column">
         &nbsp;
-      </div>    
+      </div>    	
     </div>	
+		
 
 	<div id="log3"></div>	
 	

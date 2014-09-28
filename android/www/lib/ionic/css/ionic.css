@@ -2793,7 +2793,7 @@ a.subdued {
       background-image: linear-gradient(180deg, #cc2311, #cc2311 50%, transparent 50%); }
   .bar.bar-balanced {
     border-color: #498f24;
-    background-color: #66cc33;
+    background-color: #a8aaa7;
     background-image: linear-gradient(0deg, #498f24, #498f24 50%, transparent 50%);
     color: #fff; }
     .bar.bar-balanced .title {
@@ -3008,6 +3008,16 @@ a.subdued {
   border-color: #498f24;
   background-color: #66cc33;
   color: #fff; }
+  
+
+.bar-balanced .buttons .customIconRed {
+  color : red;
+}
+ 
+ .bar-balanced .buttons .customIconGreen {
+  color : green;
+}
+  
   .bar-balanced .button:hover {
     color: #fff;
     text-decoration: none; }

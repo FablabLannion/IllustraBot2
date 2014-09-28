@@ -1,37 +1,36 @@
-<ion-view title="Illustrabot2 - Fablab Lannion - 0.5">
+<ion-view title='
+
+<img class="customtitleImg" src="img/fablab.png" />
+<h1 class="title" >Illustrabot2 - Fablab Lannion -  0.0.5</h1>
+
+ '>
   <ion-content class="padding">
 
 <div class="row">
-	<div class="col col col-50">
-		<a id="connectionStatus" class="button button-icon icon ion-radio-waves"></a>
-	</div>
+
+
 	
 	<div class="col">
-		<a id="connectionStatus" ng-click="setArm()" class="button button-icon icon ion-steam"></a>
+		<a ng-click="setArm()" class="button button-icon icon ion-steam"></a>
 		
-	</div>	
+	</div>
+
+
+	
 	<div class="col">
 		
-		<a id="connectionStatus" ng-click="setHand()" class="button button-icon icon ion-android-hand"></a>		
+		<a ng-click="setHand()" class="button button-icon icon ion-android-hand"></a>		
 	</div>		
  
 
 </div>	
 
- 
-<div class="row responsive-sm">	
-	<div id="slider">
-	<input class="bar" type="range" id="rangeinput" value="50" onchange="updateMotorHeader(value)"/>
-	<span class="highlight"></span>
-	<output id="rangevalue">50</output>
-	</div>
-	
-	
-	
-			<div class="col">
-				<span>&#xF267;</span>
-			</div>	
+ <div class="row">
+	<input type="range" min="0" max="255" value="127" onchange="updateMotorHeader(value)" />
 </div>	
+
+
+
 
 
 	
