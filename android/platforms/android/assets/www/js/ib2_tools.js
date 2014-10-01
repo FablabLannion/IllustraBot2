@@ -39,7 +39,7 @@
 	
 	//select which motor will be controlled
 	var motorHeader="00000000"
-	var armselected="00"
+	var armselected="01"
 	var motorFooter="0000"
 	var mecaLength="00";
 	var frametoSend="";
