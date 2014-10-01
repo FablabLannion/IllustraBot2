@@ -4,5 +4,5 @@
 *~
 *.bak
 bin
-/android/illustrabot2/.classpath
-/android/illustrabot2/bin/classes
+/android/platforms/android/local.properties
+/android/platforms/android/CordovaLib/local.properties

@@ -39,7 +39,7 @@
 	
 	//select which motor will be controlled
 	var motorHeader="00000000"
-	var armselected="00"
+	var armselected="01"
 	var motorFooter="0000"
 	var mecaLength="00";
 	var frametoSend="";
@@ -259,6 +259,8 @@
 	function setHand(val){
 	//********************************************
 	console.log("Hand selected");
+	document.getElementById("handButton").className = "button button-icon icon ion-android-hand customIconGreen";
+	document.getElementById("armButton").className = "button button-icon icon ion-steam customIconGrey";	
 	armselected="00";
 	motorHeader=mecaLength+armselected+motorFooter;	
 	}
@@ -268,6 +270,8 @@
 	function setArm(val){
 	//********************************************
 	console.log("Arm selected");
+	document.getElementById("handButton").className = "button button-icon icon ion-android-hand customIconGrey";
+	document.getElementById("armButton").className = "button button-icon icon ion-steam customIconGreen";
 	armselected="01";
 	motorHeader=mecaLength+armselected+motorFooter;
 	}
