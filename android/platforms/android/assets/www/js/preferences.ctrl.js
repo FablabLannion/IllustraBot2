@@ -13,6 +13,19 @@ angular.module('starter.preferences.ctrl', [])
 		$log.log('address:' +$scope.data.address);	
 		$log.log('timer:' +$scope.data.timer);	
 		
+		if (port=="")
+		{
+			console.log("Save default values...");
+			$scope.data.address=sharedIpParameters.getAddress();
+			$scope.data.port=sharedIpParameters.getPort();
+			$scope.data.timer=sharedIpParameters.getTimer();
+		  
+			$log.log('port:' +$scope.data.port);		
+			$log.log('address:' +$scope.data.address);	
+			$log.log('timer:' +$scope.data.timer);			  
+		
+		}		
+		
 		
 		//Update shared parameters to forward the values to other controllers
 		sharedIpParameters.setAddress($scope.data.address);

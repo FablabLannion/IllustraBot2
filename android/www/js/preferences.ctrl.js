@@ -13,6 +13,7 @@ angular.module('starter.preferences.ctrl', [])
 		$log.log('address:' +$scope.data.address);	
 		$log.log('timer:' +$scope.data.timer);	
 		
+
 		
 		//Update shared parameters to forward the values to other controllers
 		sharedIpParameters.setAddress($scope.data.address);

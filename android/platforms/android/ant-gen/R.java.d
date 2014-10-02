@@ -14,4 +14,17 @@ C:\softs\ionic-box\IllustraBot2\android\platforms\android\res\drawable-port-xhdp
 C:\softs\ionic-box\IllustraBot2\android\platforms\android\res\drawable-xhdpi\icon.png \
 C:\softs\ionic-box\IllustraBot2\android\platforms\android\res\values\strings.xml \
 C:\softs\ionic-box\IllustraBot2\android\platforms\android\res\xml\config.xml \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable\icon.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-hdpi\icon.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-land-hdpi\screen.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-land-ldpi\screen.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-land-mdpi\screen.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-land-xhdpi\screen.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-ldpi\icon.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-mdpi\icon.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-port-hdpi\screen.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-port-ldpi\screen.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-port-mdpi\screen.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-port-xhdpi\screen.png \
+C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\res\drawable-xhdpi\icon.png \
 C:\softs\ionic-box\IllustraBot2\android\platforms\android\ant-build\AndroidManifest.xml \

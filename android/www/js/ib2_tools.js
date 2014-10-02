@@ -18,8 +18,8 @@
 	
 	//var serverIP = "192.168.1.82";
 	//var serverIP = "192.168.1.224";
-	var serverIP = "192.168.1.79";
-	var serverPort = "48569";
+	var serverIP = "91.121.84.129";
+	var serverPort = "8089";
 	var serverID="";
     var data = "0113030001020304f1f2f3f4e1e2e3e4d1d2d3d4";
     var  key = "";	

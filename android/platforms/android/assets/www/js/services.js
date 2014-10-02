@@ -5,9 +5,9 @@ angular.module('starter.services', [])
 .service('sharedIpParameters', function() {
 
   // Some fake testing data
-  var port="1234";
-  var address="192.168.1.2";
-  var timer="1000";
+  var port="8089";
+  var address="91.121.84.129";
+  var timer="500";
   
   
   
