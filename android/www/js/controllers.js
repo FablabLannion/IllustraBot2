@@ -18,12 +18,27 @@ angular.module('starter.controllers', [])
     $scope.IpParameters = function() {
         return sharedIpParameters.getAddress() + ":" + sharedIpParameters.getPort();
     };
+	
+    $scope.Timer_Values = function() {
+        return "Timer:"+sharedIpParameters.getTimer() + "ms" ;
+    };	
+	
+	
+	
+	$scope.Timer=sharedIpParameters.getTimer();
 	$scope.frametoSend=frametoSend;
 	
 	$scope.connect = function () {
 		$log.log('connectin from AngularJS...');
 		connect(sharedIpParameters.getAddress(),sharedIpParameters.getPort());
-	}	
+	}
+
+	$scope.startTraffic = function () {
+		$log.log('connecting from AngularJS...');
+		updatePeriod($scope.Timer);
+		startTraffic();
+	}
+	
 })
 
 

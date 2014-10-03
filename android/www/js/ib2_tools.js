@@ -31,7 +31,7 @@
 
 	
     //default periodi value to poll sensors
-	var sensorPeriod = "1000";	
+	var sensorPeriod = "500";	
 	var start_time=0;
 	var end_time=0;
 	var delta=0;
@@ -39,7 +39,7 @@
 	
 	//select which motor will be controlled
 	var motorHeader="00000000"
-	var armselected="01"
+	var armselected="00"
 	var motorFooter="0000"
 	var mecaLength="00";
 	var frametoSend="";
@@ -323,11 +323,11 @@
 
 	
 	//********************************************
-	function updatePeriod(e){
+	function updatePeriod(period){
 	//********************************************
 
 		//Refresh sample periodi used for sensor polling		
-		sensorPeriod=document.getElementById("SamplePeriod").value;
+		sensorPeriod=period;
 		console.log("New period:"+sensorPeriod);
 
 	}	
