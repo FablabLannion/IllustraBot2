@@ -99,6 +99,24 @@
 	
 
 
+
+
+	//********************************************
+	function closeSockets(){
+	//********************************************
+		
+		//Close previous connections if any
+		window.tlantic.plugins.socket.disconnectAll(
+		  function () {
+			console.log('worked!');  
+		  },
+
+		  function () {
+			console.log('failed!');
+		  }
+		);	
+	}
+
 	//********************************************
 	function connect(serverIP, serverPort){
 	//********************************************
